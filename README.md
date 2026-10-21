@@ -1,18 +1,20 @@
-# SOLARIS · SEU CXXY RoboMaster
+# 天钺 SOLARIS · SEU CXXY RoboMaster
 
-> ⚠️ **临时镜像站点**：本仓库为东南大学成贤学院 Solaris 机甲大师战队的临时官网镜像，部署在 GitHub Pages 上。正式官网待搭建，内容以本镜像为准。
+> ⚠️ **临时镜像站点**：本仓库为东南大学成贤学院天钺（Solaris）机甲大师战队的临时官网镜像，部署在 GitHub Pages 上。正式官网待搭建，内容以本镜像为准。
 
 **在线访问**：<https://hortonwen.github.io/solaris-rm/>
 
-**战队**：东南大学成贤学院 · Solaris RoboMaster 战队
+**战队**：东南大学成贤学院 · 天钺（Solaris）RoboMaster 战队
+**中文名**：天钺
+**英文名**：Solaris
 **口号**：秣陵形胜，共赴千山
 **学院**：SEU CXXY（Southeast University Chengxian College）
 
 ---
 
-## 关于 Solaris
+## 关于天钺 · Solaris
 
-Solaris 是东南大学成贤学院的 RoboMaster 机甲大师战队。我们从南京出发，以"太阳"为名，把机械、嵌入式、视觉、算法和运营拧成一股绳——在赛场上自研机器人，在弹丸与装甲之间找工程的答案。
+天钺（Solaris）是东南大学成贤学院的 RoboMaster 机甲大师战队：中文名「天钺」，英文名「Solaris」（源自古拉丁语"太阳"）。我们从南京出发，以太阳为名、以"钺"为志，把机械、嵌入式、视觉、算法和运营拧成一股绳——在赛场上自研机器人，在弹丸与装甲之间找工程的答案。
 
 - **赛事体系**：RoboMaster（RMUC 超级对抗赛 / RMUL 高校联盟赛 / RMUT 技术挑战赛）
 - **技术栈**：机械结构、嵌入式控制、机器视觉、自瞄、决策算法、通信、运营宣发
