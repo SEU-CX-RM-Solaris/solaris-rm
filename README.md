@@ -2,7 +2,7 @@
 
 > ⚠️ **临时镜像站点**：本仓库为东南大学成贤学院天钺（Solaris）机甲大师战队的临时官网镜像，部署在 GitHub Pages 上。正式官网待搭建，内容以本镜像为准。
 
-**在线访问**：<https://hortonwen.github.io/solaris-rm/>
+**在线访问**：<https://seu-cx-rm-solaris.github.io/solaris-rm/>
 
 **战队**：东南大学成贤学院 · 天钺（Solaris）RoboMaster 战队
 **中文名**：天钺
@@ -32,11 +32,11 @@
 
 ## 关联项目
 
-### [rm-open-source-leaderboard](https://github.com/HortonWen/rm-open-source-leaderboard)
+### [rm-open-source-leaderboard](https://github.com/SEU-CX-RM-Solaris/rm-open-source-leaderboard)
 
 机甲大师（RoboMaster）开源资源目录，由东南大学成贤学院机甲大师战队整理。汇总各战队、个人开发者在 GitHub、Gitee 与 RoboMaster 论坛开源专栏的代码、图纸与项目，并收录 DJI 官方及第三方公司的文档与 SDK。
 
-- **在线目录**：<https://hortonwen.github.io/rm-open-source-leaderboard/>
+- **在线目录**：<https://seu-cx-rm-solaris.github.io/rm-open-source-leaderboard/>
 - **分类**：官方资源 / 第三方公司 / 社区框架与工具 / 机械图纸 / 战队开源 / 个人开源 / 论坛开源帖
 - **数据口径**：分类目录，已取消排名机制，不对战队做比较或打分
 
@@ -51,7 +51,7 @@
 ## 本地开发
 
 ```bash
-git clone https://github.com/HortonWen/solaris-rm.git
+git clone https://github.com/SEU-CX-RM-Solaris/solaris-rm.git
 cd solaris-rm
 # 直接用浏览器打开 index.html，或起任意静态服务器
 python -m http.server 8000
