@@ -1,6 +1,6 @@
 # 天钺 SOLARIS · SEU CXXY RoboMaster
 
-> ⚠️ **临时镜像站点**：本仓库为东南大学成贤学院天钺（Solaris）机甲大师战队的临时官网镜像，部署在 GitHub Pages 上。正式官网待搭建，内容以本镜像为准。
+> **战队官网**：东南大学成贤学院天钺（Solaris）机甲大师战队的官方网站，部署在 GitHub Pages 上。
 
 **在线访问**：<https://seu-cx-rm-solaris.github.io/solaris-rm/>
 
