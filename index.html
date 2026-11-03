@@ -29,6 +29,7 @@ img{display:block;max-width:100%}
 .brand-emblem,.seal-mark{object-fit:cover}
 /* 封面图（静态声明于 CSS url()，供 JS 渲染引用） */
 .cover-qr{background-image:url('images/qr.jpg')}
+.cover-rm-arena{background-image:url('images/rm-arena.jpg')}
 .cover-robots{background-image:url('images/robots.jpg')}
 .cover-arena{background-image:url('images/arena.jpg')}
 .cover-battle{background-image:url('images/battle.jpg')}
@@ -261,11 +262,11 @@ html[data-theme="system"] .icon-moon{display:none}
 </style> </head> <body>
 
 <header class="site-header" data-header>
-  <a class="brand" href="#/" aria-label="天钺 Solaris 首页">
+  <a class="brand" href="#/" aria-label="东南大学成贤学院 机甲大师-天钺战队 首页">
     <img class="brand-emblem" src="images/hero.jpg" alt="" width="30" height="30">
     <span class="brand-text">
-      <span class="brand-wordmark">天钺 · SOLARIS</span>
-      <span class="brand-fallback">SEU CXXY ROBOMASTER</span>
+      <span class="brand-wordmark">东南大学成贤学院</span>
+      <span class="brand-fallback">机甲大师-天钺战队</span>
     </span>
   </a>
   <nav class="desktop-nav" aria-label="主导航">
@@ -301,7 +302,7 @@ html[data-theme="system"] .icon-moon{display:none}
   <div class="mobile-overlay-top">
     <a class="brand" href="#/">
       <img class="brand-emblem" src="images/hero.jpg" alt="" width="30" height="30">
-      <span class="brand-text"><span class="brand-wordmark">天钺 · SOLARIS</span><span class="brand-fallback">SEU CXXY ROBOMASTER</span></span>
+      <span class="brand-text"><span class="brand-wordmark">东南大学成贤学院</span><span class="brand-fallback">机甲大师-天钺战队</span></span>
     </a>
     <button class="icon-button" type="button" aria-label="关闭菜单" data-menu-close>
       <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
@@ -368,7 +369,7 @@ html[data-theme="system"] .icon-moon{display:none}
 /* ===== 文章数据（真实素材） ===== */
 var ARTICLES = [
   {
-    slug:"recruit-2026", type:"新闻", date:"2026/10", cover:"cover-qr", featured:true,
+    slug:"recruit-2026", type:"新闻", date:"2026/10", cover:"cover-rm-arena", featured:true,
     title:"天钺（Solaris）2026 赛季招新启动",
     summary:"从机械到视觉，从电控到算法。天钺战队面向全校招募新队员，零基础也可以从入门开始，一起备战 2027 赛季。",
     body:[
