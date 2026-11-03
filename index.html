@@ -1,319 +1,412 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="system"> <head><meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1"> <meta name="theme-color" content="#f6f7f9"> <meta name="description" content="天钺（Solaris）是东南大学成贤学院的 RoboMaster 机甲大师战队。以太阳为名、以钺为志，记录建队的过程与每一次尝试。"> <title>天钺 Solaris · 东南大学成贤学院 RoboMaster 战队</title> <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232464ed'/%3E%3Ccircle cx='32' cy='32' r='13' fill='none' stroke='%23fff' stroke-width='5'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%23fff'/%3E%3C/svg%3E"> <script>
-  (() => {
-    try {
-      document.documentElement.dataset.theme = localStorage.getItem('solaris-theme') || 'system';
-    } catch {
-      document.documentElement.dataset.theme = 'system';
-    }
-  })();
-</script> <style>
+<!DOCTYPE html><html lang="zh-CN" data-theme="system">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f6f7f9">
+<meta name="description" content="东南大学成贤学院天钺（Solaris）RoboMaster 机甲大师战队。以太阳为名、以钺为志，记录建队的过程与每一次尝试。">
+<title>天钺 Solaris · 东南大学成贤学院 RoboMaster 战队</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232464ed'/%3E%3Ccircle cx='32' cy='32' r='13' fill='none' stroke='%23fff' stroke-width='5'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%23fff'/%3E%3C/svg%3E">
+<script>
+  (() => { try { document.documentElement.dataset.theme = localStorage.getItem('solaris-theme') || 'system'; } catch(e) { document.documentElement.dataset.theme = 'system'; } })();
+</script>
+<style>
 :root{
-  --bg:#f6f7f9; --surface:#ffffff; --text:#181a1e; --muted:#5f6672;
+  --bg:#f6f7f9; --surface:#ffffff; --text:#181a1e; --muted:#5a6472;
   --line:#dbe2ed; --blue:#2464ed; --blue-deep:#1b4fc4; --ice:#eef2fb;
-  --radius-sm:10px; --radius-md:14px; --header-height:72px;
-  --maxw:1180px;
+  --radius-sm:10px; --radius-md:14px; --header-height:72px; --maxw:1180px;
+  --shadow:0 2px 10px rgba(24,26,30,.06);
 }
 html[data-theme="dark"]{
-  --bg:#0f1115; --surface:#161a20; --text:#e8ecf2; --muted:#9aa3b0;
-  --line:#262c36; --blue:#3d7bfd; --blue-deep:#5b8efd; --ice:#1a2030;
+  --bg:#0f1115; --surface:#171a20; --text:#eef0f4; --muted:#9aa3b2;
+  --line:#2a2f3a; --blue:#3b82f6; --blue-deep:#5b93ff; --ice:#1b2030;
+  --shadow:0 2px 10px rgba(0,0,0,.35);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{
-  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",-apple-system,"Segoe UI",system-ui,sans-serif;
-  background:var(--bg);color:var(--text);line-height:1.7;
-  -webkit-font-smoothing:antialiased;transition:background .25s,color .25s;
-}
+body{font-family:"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .25s,color .25s}
 a{color:inherit;text-decoration:none}
+button{font:inherit;border:none;background:none;cursor:pointer;color:inherit}
 img{display:block;max-width:100%}
 .brand-emblem,.seal-mark{object-fit:cover}
-/* 封面图（静态声明于 CSS url()，供 JS 渲染引用） */
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:24px;padding-right:24px}
+.skip-link{position:absolute;left:-9999px;top:0;z-index:100;padding:10px 16px;background:var(--blue);color:#fff;border-radius:0 0 8px 0}
+.skip-link:focus{left:0}
+
+/* ===== 封面图（静态声明于 CSS url()） ===== */
 .cover-qr{background-image:url('images/qr.jpg')}
-.cover-rm-arena{background-image:url('images/rm-arena.jpg')}
 .cover-robots{background-image:url('images/robots.jpg')}
 .cover-arena{background-image:url('images/arena.jpg')}
 .cover-battle{background-image:url('images/battle.jpg')}
 .cover-poster{background-image:url('images/poster.jpg')}
 .cover-hero{background-image:url('images/hero.jpg')}
+.cover-rm-arena{background-image:url('images/rm-arena.jpg')}
 .cover{background-size:cover;background-position:center;background-repeat:no-repeat}
-button{font-family:inherit;cursor:pointer;background:none;border:none;color:inherit}
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
 
 /* ===== 顶栏 ===== */
-.site-header{
-  position:sticky;top:0;z-index:100;height:var(--header-height);
-  display:flex;align-items:center;gap:24px;padding:0 20px;
-  background:color-mix(in srgb,var(--bg) 88%,transparent);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--line);
-}
-.brand{display:flex;align-items:center;gap:10px;margin-right:auto}
-.brand-emblem{width:30px;height:30px;border-radius:8px}
-.brand-text{display:flex;flex-direction:column;line-height:1.15}
-.brand-wordmark{font-size:15px;font-weight:800;letter-spacing:.02em}
-.brand-fallback{font-size:11px;color:var(--muted);font-weight:500;letter-spacing:.08em}
-.desktop-nav{display:none;gap:22px}
-.desktop-nav a{font-size:14px;font-weight:600;color:var(--muted);padding:6px 2px;transition:color .2s}
-.desktop-nav a:hover,.desktop-nav a[aria-current="page"]{color:var(--text)}
-.header-actions{display:flex;align-items:center;gap:12px}
-.external-nav{display:none;align-items:center;gap:4px;font-size:13px;font-weight:600;color:var(--muted);padding:6px 2px;transition:color .2s}
+.site-header{position:sticky;top:0;z-index:50;height:var(--header-height);display:flex;align-items:center;gap:20px;padding:0 24px;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid color-mix(in srgb,var(--line) 60%,transparent)}
+.brand{display:flex;align-items:center;gap:10px;margin-right:auto;min-width:0}
+.brand-emblem{width:32px;height:32px;border-radius:8px}
+.brand-text{display:flex;flex-direction:column;line-height:1.15;min-width:0}
+.brand-wordmark{font-size:15px;font-weight:800;letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand-fallback{font-size:11px;color:var(--muted);font-weight:500;letter-spacing:.08em;white-space:nowrap}
+.desktop-nav{display:flex;align-items:center;gap:22px}
+.desktop-nav a{font-size:14px;font-weight:500;color:var(--muted);transition:color .2s}
+.desktop-nav a:hover{color:var(--blue)}
+.header-actions{display:flex;align-items:center;gap:14px}
+.external-nav{display:inline-flex;align-items:center;gap:4px;font-size:14px;font-weight:500;color:var(--muted);transition:color .2s}
 .external-nav:hover{color:var(--blue)}
-.header-join{
-  display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;
-  background:var(--blue);color:#fff;border:1px solid var(--blue);border-radius:var(--radius-sm);
-  padding:9px 16px;transition:transform .2s,background .2s;
-}
-.header-join:hover{background:var(--blue-deep);border-color:var(--blue-deep);transform:translateY(-1px)}
-.icon-button{
-  display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;
-  border-radius:10px;border:1px solid var(--line);color:var(--muted);transition:border-color .2s,color .2s;
-}
-.icon-button:hover{border-color:var(--blue);color:var(--blue)}
+.header-join{display:inline-flex;align-items:center;gap:4px;background:var(--blue);color:#fff;border-radius:var(--radius-sm);padding:8px 16px;font-size:13px;font-weight:600;transition:background .2s,transform .2s}
+.header-join:hover{background:var(--blue-deep);transform:translateY(-1px)}
+.icon-button{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;color:var(--muted);transition:background .2s,color .2s}
+.icon-button:hover{background:var(--ice);color:var(--text)}
 .theme-switcher{position:relative}
-.theme-menu{
-  position:absolute;right:0;top:calc(100% + 8px);min-width:150px;background:var(--surface);
-  border:1px solid var(--line);border-radius:var(--radius-md);box-shadow:0 12px 32px rgba(0,0,0,.1);
-  padding:6px;z-index:50;
-}
-.theme-menu button{
-  display:flex;align-items:center;gap:10px;width:100%;padding:9px 12px;border-radius:8px;
-  font-size:13px;font-weight:500;color:var(--text);text-align:left;transition:background .15s;
-}
-.theme-menu button:hover{background:var(--ice)}
-.theme-menu button.is-active{color:var(--blue);font-weight:700}
-.mobile-menu-button{display:inline-flex}
-.icon-sun{display:block}
-html[data-theme="light"] .icon-sun{display:block}
-html[data-theme="light"] .icon-moon{display:none}
-html[data-theme="dark"] .icon-sun{display:none}
-html[data-theme="dark"] .icon-moon{display:block}
-html[data-theme="system"] .icon-sun{display:block}
-html[data-theme="system"] .icon-moon{display:none}
-@media (prefers-color-scheme:dark){html[data-theme="system"] .icon-sun{display:none}html[data-theme="system"] .icon-moon{display:block}}
-
-/* 移动端菜单 */
-.mobile-overlay{
-  position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;flex-direction:column;
-  padding:20px;opacity:0;pointer-events:none;transition:opacity .2s;
-}
-.mobile-overlay.is-open{opacity:1;pointer-events:auto}
-.mobile-overlay-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+.theme-trigger{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;color:var(--muted);transition:background .2s,color .2s}
+.theme-trigger:hover{background:var(--ice);color:var(--text)}
+.icon-sun{display:none}
+html[data-theme="dark"] .icon-moon{display:none}
+html[data-theme="dark"] .icon-sun{display:block}
+.theme-menu{position:absolute;top:calc(100% + 6px);right:0;min-width:150px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);box-shadow:var(--shadow);padding:6px;z-index:60}
+.theme-menu[hidden]{display:none}
+.theme-menu button{display:flex;align-items:center;gap:8px;width:100%;padding:8px 10px;border-radius:8px;font-size:13px;color:var(--muted);text-align:left}
+.theme-menu button:hover{background:var(--ice);color:var(--text)}
+.theme-menu button.is-active{color:var(--blue);font-weight:600}
+.mobile-header-tools{display:none}
+.mobile-menu-button{display:none}
+.mobile-overlay{position:fixed;inset:0;z-index:80;background:var(--surface);padding:20px 24px;transform:translateX(100%);transition:transform .3s ease;display:flex;flex-direction:column;gap:24px;overflow-y:auto}
+.mobile-overlay.is-open{transform:translateX(0)}
+.mobile-overlay-top{display:flex;align-items:center;justify-content:space-between}
 .mobile-overlay nav{display:flex;flex-direction:column;gap:4px}
-.mobile-overlay nav a{
-  display:flex;justify-content:space-between;align-items:center;padding:16px 4px;
-  font-size:19px;font-weight:700;border-bottom:1px solid var(--line);
-}
-.mobile-theme-row{display:flex;align-items:center;justify-content:space-between;margin-top:28px;padding:0 4px}
-.mobile-theme-label{font-size:13px;color:var(--muted)}
-.mobile-theme-group{display:flex;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:4px}
-.mobile-theme-btn{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);padding:7px 12px;border-radius:8px;font-weight:600}
-.mobile-theme-btn.is-active{background:var(--blue);color:#fff}
-.mobile-overlay-note{margin-top:auto;font-size:12px;letter-spacing:.1em;color:var(--muted)}
+.mobile-overlay nav a{display:flex;align-items:center;justify-content:space-between;padding:14px 6px;font-size:17px;font-weight:600;border-bottom:1px solid var(--line)}
+.mobile-theme-row{display:flex;align-items:center;justify-content:space-between}
+.mobile-theme-label{font-size:14px;color:var(--muted)}
+.mobile-theme-group{display:flex;gap:6px}
+.mobile-theme-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:8px;border:1px solid var(--line);font-size:12px;color:var(--muted)}
+.mobile-theme-btn.is-active{border-color:var(--blue);color:var(--blue);font-weight:600}
+.mobile-overlay-note{font-size:11px;letter-spacing:.14em;color:var(--muted);margin-top:auto}
+
+/* ===== 按钮 ===== */
+.button{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:42px;padding:10px 20px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;border:1px solid transparent;transition:transform .2s,background .2s,border-color .2s,color .2s}
+.button:hover{transform:translateY(-2px)}
+.button:active{transform:translateY(0)}
+.button-primary{background:var(--blue);color:#fff}
+.button-primary:hover{background:var(--blue-deep)}
+.button-secondary{background:var(--surface);color:var(--text);border-color:var(--line)}
+.button-secondary:hover{border-color:var(--blue);color:var(--blue)}
+.small-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--blue)}
+.small-link:hover{color:var(--blue-deep)}
 
 /* ===== Hero ===== */
-.page-hero{position:relative;border-bottom:1px solid var(--line);overflow:hidden}
-.hero-grid{
-  position:absolute;inset:0;pointer-events:none;opacity:.35;
-  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
-  background-size:120px 120px;
-  -webkit-mask-image:linear-gradient(to bottom,#000 30%,transparent 95%);
-  mask-image:linear-gradient(to bottom,#000 30%,transparent 95%);
-}
-.hero-inner{position:relative;padding:56px 20px 48px;max-width:var(--maxw);margin:0 auto}
-.section-line{
-  font-size:12px;font-weight:700;letter-spacing:.22em;color:var(--blue);text-transform:uppercase;
-  display:flex;align-items:center;gap:10px;margin-bottom:18px;
-}
-.section-line::before{content:"";width:22px;height:2px;background:var(--blue);border-radius:1px}
-.page-hero h1{
-  font-size:clamp(34px,4.8vw,56px);line-height:1.15;font-weight:800;letter-spacing:-.01em;margin-bottom:16px;
-}
-.page-hero .hero-copy{font-size:15px;color:var(--muted);max-width:46em}
+.hero{position:relative;overflow:hidden;padding:72px 0 96px}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:120px 120px;opacity:.35;pointer-events:none;mask-image:radial-gradient(ellipse 90% 80% at 50% 20%,#000 55%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 90% 80% at 50% 20%,#000 55%,transparent 100%)}
+.hero-stage{position:relative;display:flex;align-items:center;gap:48px;max-width:var(--maxw);margin:0 auto;padding:0 24px 40px}
+.hero-title-lockup{flex:1;line-height:.9}
+.hero-title-lockup .hello{font-size:clamp(56px,9vw,110px);font-weight:900;letter-spacing:-.03em;background:linear-gradient(135deg,var(--text) 30%,var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-title-lockup .world{font-size:clamp(56px,9vw,110px);font-weight:900;letter-spacing:-.03em;background:linear-gradient(135deg,var(--blue),var(--blue-deep));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-character{width:min(360px,40vw);aspect-ratio:1024/619;border-radius:var(--radius-md);box-shadow:var(--shadow);flex-shrink:0;background-size:cover;background-position:center}
+.hero-copy{max-width:var(--maxw);margin:0 auto;padding:0 24px 28px}
+.hero-copy h1{font-size:clamp(26px,3.4vw,40px);font-weight:800;letter-spacing:-.01em;line-height:1.25;margin-bottom:14px}
+.hero-copy h1 span{color:var(--blue)}
+.hero-copy p{font-size:16px;color:var(--muted);max-width:560px}
+.hero-actions{max-width:var(--maxw);margin:0 auto;padding:0 24px;display:flex;gap:12px;flex-wrap:wrap}
+.hero-aside{position:absolute;right:24px;bottom:24px;text-align:right;font-size:13px;color:var(--muted);line-height:1.5}
+.hero-aside small{display:block;margin-top:6px;font-size:10px;letter-spacing:.18em;color:var(--muted);opacity:.7}
 
-/* ===== 筛选 Tabs ===== */
-.filter-tabs{
-  display:flex;gap:24px;max-width:var(--maxw);margin:0 auto;padding:0 20px;
-  border-bottom:1px solid var(--line);
-}
-.filter-tabs button{
-  position:relative;padding:14px 2px;font-size:15px;font-weight:600;color:var(--muted);
-  transition:color .2s;
-}
-.filter-tabs button::after{
-  content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--blue);
-  transform:scaleX(0);transform-origin:left;transition:transform .25s;
-}
-.filter-tabs button.is-active{color:var(--text)}
-.filter-tabs button.is-active::after{transform:scaleX(1)}
+/* ===== 通用 section ===== */
+.section{padding-block:88px}
+.section-line{font-size:12px;font-weight:700;letter-spacing:.22em;color:var(--blue);margin-bottom:18px}
+.section-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:40px}
+.section-heading h2{font-size:clamp(26px,3.2vw,36px);font-weight:800;letter-spacing:-.01em;line-height:1.25}
+.section-heading-stacked{flex-direction:column;align-items:flex-start}
+.section-heading p{max-width:520px;color:var(--muted);font-size:15px}
 
-/* ===== Featured 大卡 ===== */
-.featured{padding:40px 20px 8px;max-width:var(--maxw);margin:0 auto}
-.story-card{
-  display:grid;grid-template-columns:1fr;gap:0;background:var(--surface);
-  border:1px solid var(--line);border-radius:var(--radius-md);overflow:hidden;
-  transition:transform .25s,box-shadow .25s,border-color .25s;
-}
-.story-card:hover{transform:translateY(-4px);box-shadow:0 18px 44px rgba(20,40,90,.10);border-color:var(--blue)}
-.story-card .story-cover{aspect-ratio:3/2;overflow:hidden;min-height:100%}
+/* ===== WHAT WE DO bento ===== */
+.bento{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.daily{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);padding:22px;display:flex;flex-direction:column;min-height:230px;position:relative;overflow:hidden;transition:transform .25s,border-color .25s}
+.daily:hover{transform:translateY(-4px);border-color:var(--blue)}
+.daily-top{display:flex;justify-content:space-between;font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--muted);margin-bottom:14px}
+.daily h3{font-size:17px;font-weight:700;margin-bottom:10px;line-height:1.4}
+.daily p{font-size:13.5px;color:var(--muted);flex:1}
+.daily-symbol{position:absolute;right:16px;bottom:10px;font-size:44px;font-weight:800;color:var(--blue);opacity:.14;font-family:ui-monospace,Consolas,monospace}
+.daily-symbol.orange{color:#e8833a}
+
+/* ===== START HERE ===== */
+.start{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:88px 0}
+.start-intro{display:flex;flex-direction:column;gap:10px;margin-bottom:48px}
+.start-intro p{font-size:15px;color:var(--muted)}
+.start-intro h2{font-size:clamp(24px,3vw,34px);font-weight:800;letter-spacing:-.01em}
+.start-intro h2 span{color:var(--blue)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:48px}
+.step-number{display:block;font-size:13px;font-weight:700;letter-spacing:.1em;color:var(--blue);margin-bottom:14px}
+.step h3{font-size:19px;font-weight:700;margin-bottom:10px}
+.step p{font-size:14px;color:var(--muted);margin-bottom:16px}
+.step .small-link{margin-top:4px}
+
+/* ===== 横滚相册 ===== */
+.home-gallery{padding:88px 0;overflow:hidden}
+.gallery-viewport{overflow-x:auto;scroll-snap-type:x mandatory;cursor:grab;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.gallery-viewport::-webkit-scrollbar{display:none}
+.gallery-track{display:flex;gap:20px;padding:0 24px;width:max-content}
+.gallery-photo{width:min(560px,72vw);height:min(420px,52vh);border-radius:var(--radius-md);scroll-snap-align:center;box-shadow:var(--shadow);background-size:cover;background-position:center;flex-shrink:0}
+
+/* ===== LATEST ===== */
+.latest-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:stretch}
+.lead-story{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,border-color .25s}
+.lead-story:hover{transform:translateY(-4px);border-color:var(--blue)}
+.lead-story .news-cover{aspect-ratio:3/2;width:100%;background-size:cover;background-position:center}
+.lead-story .meta,.side-story .meta{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);margin-bottom:8px}
+.lead-story .meta .type,.side-story .meta .type{color:var(--blue);font-weight:600}
+.lead-story h3,.side-story h3{font-size:17px;font-weight:700;line-height:1.4;margin-bottom:8px}
+.lead-story p,.side-story p{font-size:13.5px;color:var(--muted)}
+.side-stories{display:flex;flex-direction:column;gap:20px}
+.side-story{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);padding:20px;display:flex;gap:16px;align-items:center;transition:transform .25s,border-color .25s}
+.side-story:hover{transform:translateY(-4px);border-color:var(--blue)}
+.side-story>div{flex:1;min-width:0}
+.side-thumb{width:92px;height:92px;border-radius:var(--radius-sm);flex-shrink:0;background-size:cover;background-position:center}
+.side-story h3{font-size:15px}
+.side-story p{font-size:13px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+/* ===== THE JOURNEY 堆叠滚动 ===== */
+.ecosystem{position:relative;padding:88px 0 120px}
+.stack-scroll{position:relative;margin-top:40px}
+.stack-scroll-card{position:sticky;top:calc(var(--header-height) + 8px);border-radius:var(--radius-md);border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden;margin-bottom:24px}
+.eco-panel{display:grid;grid-template-columns:1fr 1fr;gap:40px;padding:56px 24px;align-items:center}
+.eco-content .eco-number{font-size:12px;font-weight:700;letter-spacing:.2em;margin-bottom:12px;opacity:.85}
+.eco-name{font-size:34px;font-weight:900;letter-spacing:-.01em;margin-bottom:8px}
+.eco-headline{font-size:18px;font-weight:700;margin-bottom:14px}
+.eco-content p{font-size:14.5px;line-height:1.75;margin-bottom:20px;opacity:.92}
+.eco-content .small-link{margin-top:4px}
+.journey-mockup{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow)}
+.mockup-header{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--ice)}
+.mockup-dots{display:flex;gap:6px}
+.mockup-dots .dot{width:10px;height:10px;border-radius:50%}
+.dot-red{background:#ff5f57}.dot-yellow{background:#febc2e}.dot-green{background:#28c840}
+.mockup-title{font-size:11px;color:var(--muted);font-family:ui-monospace,Consolas,monospace;margin-left:6px}
+.mockup-body{padding:16px;font-family:ui-monospace,Consolas,monospace;font-size:12px;line-height:1.7;color:var(--text)}
+.term-line .prompt-arrow{color:var(--blue);margin-right:6px}
+.term-line .prompt-path{color:var(--muted);margin-right:6px}
+.term-line.success{color:var(--muted)}
+.term-output{margin-top:6px;color:var(--blue);font-style:italic}
+.term-cursor-line{margin-top:8px}
+.cursor{display:inline-block;width:7px;height:14px;background:var(--blue);animation:blink 1s step-end infinite;vertical-align:-2px}
+@keyframes blink{50%{opacity:0}}
+.pr-top-bar{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--ice);font-size:11px;font-family:ui-monospace,Consolas,monospace;color:var(--muted)}
+.pr-badge{background:#1a7f37;color:#fff;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:700}
+.pr-title{padding:14px 16px 4px;font-size:14px;font-weight:600;font-family:ui-monospace,Consolas,monospace}
+.pr-meta-row{display:flex;align-items:center;gap:8px;padding:0 16px;font-size:11px;color:var(--muted)}
+.pr-timeline{padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.timeline-item{display:flex;gap:10px;font-size:12px}
+.tl-icon{font-size:11px;color:var(--blue)}
+.tl-content{display:flex;flex-direction:column}
+.tl-msg{font-weight:500}
+.tl-hash,.tl-sub{font-size:11px;color:var(--muted)}
+.pr-stats-row{display:flex;gap:8px;padding:10px 16px 14px;font-size:11px;color:var(--muted);font-family:ui-monospace,Consolas,monospace}
+.stat-tag{background:var(--ice);padding:3px 8px;border-radius:6px}
+.tinker-header{display:flex;flex-direction:column;gap:2px;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--ice)}
+.tinker-label{font-size:11px;font-weight:700;letter-spacing:.16em;color:var(--blue)}
+.tinker-subtitle{font-size:11px;color:var(--muted)}
+.tinker-list{padding:6px 16px 14px;display:flex;flex-direction:column}
+.tinker-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.tinker-item:last-child{border-bottom:none}
+.tinker-emoji{width:34px;height:34px;border-radius:8px;background:var(--ice);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.tinker-body{flex:1;min-width:0}
+.tinker-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:3px}
+.tinker-title{font-size:13px;font-weight:600}
+.tinker-tag{font-size:10px;color:var(--blue);background:var(--ice);padding:2px 7px;border-radius:999px;white-space:nowrap}
+.tinker-desc{font-size:12px;color:var(--muted);line-height:1.55}
+
+/* ===== JOIN US ===== */
+.join-section{padding:96px 0}
+.join-inner{display:flex;align-items:center;justify-content:space-between;gap:48px;flex-wrap:wrap}
+.join-inner h2{font-size:clamp(26px,3.4vw,40px);font-weight:800;letter-spacing:-.01em;line-height:1.25}
+.join-inner>div p{color:var(--muted);font-size:15px;max-width:480px;margin-bottom:24px}
+.join-inner>div .button{margin-top:4px}
+
+/* ===== 动态页（文章列表） ===== */
+.page-hero{position:relative;padding:88px 0 56px;overflow:hidden}
+.page-hero .hero-grid{opacity:.3}
+.page-hero .inner-hero{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.page-hero h1{font-size:clamp(34px,4.8vw,56px);font-weight:800;letter-spacing:-.02em;line-height:1.15;margin-bottom:16px}
+.page-hero p{font-size:16px;color:var(--muted);max-width:620px}
+.filter-tabs{display:flex;gap:24px;max-width:var(--maxw);margin:0 auto;padding:24px 24px 0;border-bottom:1px solid var(--line)}
+.filter-tabs button{position:relative;padding:10px 2px 12px;font-size:15px;font-weight:500;color:var(--muted);transition:color .2s}
+.filter-tabs button:hover{color:var(--text)}
+.filter-tabs button.is-active{color:var(--text);font-weight:700}
+.filter-tabs button.is-active::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--blue);border-radius:2px}
+.featured{padding:44px 24px 8px;max-width:var(--maxw);margin:0 auto}
+.story-card{display:grid;grid-template-columns:1.15fr 1fr;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);overflow:hidden;transition:transform .25s,border-color .25s}
+.story-card:hover{transform:translateY(-4px);border-color:var(--blue)}
+.story-card .story-cover{aspect-ratio:3/2;overflow:hidden;min-height:100%;width:100%;background-size:cover;background-position:center}
 .story-card:hover .story-cover{transform:scale(1.03)}
-.story-body{padding:26px 24px}
-.eyebrow{font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--blue);margin-bottom:10px}
-.story-body h2{font-size:clamp(20px,2.4vw,27px);line-height:1.3;font-weight:800;margin-bottom:10px}
-.story-body p{font-size:14px;color:var(--muted);margin-bottom:16px}
-.read-more{
-  display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--blue);
-  border-bottom:1.5px solid var(--blue);padding-bottom:2px;transition:gap .2s;
-}
-.read-more:hover{gap:10px}
-
-/* ===== 文章网格 ===== */
-.editorial{padding:32px 0 64px}
-.editorial-grid{display:grid;grid-template-columns:1fr;gap:28px 26px;max-width:var(--maxw);margin:0 auto;padding:0 20px}
-.article-card{
-  display:flex;flex-direction:column;background:var(--surface);
-  border:1px solid var(--line);border-radius:var(--radius-md);overflow:hidden;
-  transition:transform .25s,box-shadow .25s,border-color .25s;
-}
-.article-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(20,40,90,.08);border-color:var(--blue)}
-.article-cover{aspect-ratio:3/2;overflow:hidden;transition:transform .5s}
+.story-body{padding:28px;display:flex;flex-direction:column;justify-content:center}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--blue);margin-bottom:12px}
+.story-body h3{font-size:clamp(20px,2.4vw,26px);font-weight:800;line-height:1.35;margin-bottom:12px}
+.story-body p{font-size:14px;color:var(--muted);margin-bottom:20px;flex:1}
+.read-more{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--blue)}
+.editorial{padding:40px 24px 80px;max-width:var(--maxw);margin:0 auto}
+.editorial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.article-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,border-color .25s}
+.article-card:hover{transform:translateY(-4px);border-color:var(--blue)}
+.article-cover{aspect-ratio:3/2;overflow:hidden;width:100%;background-size:cover;background-position:center;transition:transform .5s}
 .article-card:hover .article-cover{transform:scale(1.03)}
-.article-body{padding:22px 20px 24px;display:flex;flex-direction:column;flex:1}
-.article-meta{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.03em;margin-bottom:10px}
-.article-meta .type{color:var(--blue);font-weight:700}
-.article-body h3{font-size:17px;line-height:1.4;font-weight:750;margin-bottom:8px}
+.article-body{padding:18px;display:flex;flex-direction:column;flex:1}
+.article-body .meta{font-size:12px;color:var(--muted);margin-bottom:8px;display:flex;gap:6px}
+.article-body .meta .type{color:var(--blue);font-weight:600}
+.article-body h3{font-size:16px;font-weight:700;line-height:1.4;margin-bottom:8px}
 .article-body p{font-size:14px;color:var(--muted);margin-bottom:16px;flex:1}
-.read-more.sm{font-size:12.5px}
+.article-body .read-more{margin-top:auto}
 
-/* ===== 文章详情视图 ===== */
-.detail{max-width:760px;margin:0 auto;padding:48px 20px 80px}
-.detail-back{
-  display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--muted);
-  margin-bottom:28px;transition:color .2s,gap .2s;
-}
-.detail-back:hover{color:var(--blue);gap:10px}
-.detail .eyebrow{margin-bottom:14px}
-.detail h1{font-size:clamp(26px,3.6vw,38px);line-height:1.25;font-weight:800;margin-bottom:18px}
-.detail .lead{font-size:16px;color:var(--muted);margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--line)}
-.detail-cover{aspect-ratio:3/2;border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--line);margin-bottom:32px}
-.detail-body{font-size:15px}
-.detail-body h2{font-size:20px;font-weight:750;margin:28px 0 12px}
-.detail-body h3{font-size:17px;font-weight:700;margin:22px 0 10px}
-.detail-body p{margin-bottom:14px}
-.detail-body ul{margin:0 0 16px 20px}
-.detail-body li{margin-bottom:6px}
-.detail-body .callout{
-  background:var(--ice);border:1px solid var(--line);border-radius:var(--radius-sm);
-  padding:16px 18px;margin:20px 0;font-size:14px;
-}
-.detail-body .callout strong{color:var(--blue)}
-.detail-links{margin-top:36px;padding-top:24px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
-.detail-links a{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--blue);width:fit-content}
-.detail-links a:hover{text-decoration:underline}
-/* 兵种卡（博客内） */
-.bot-grid{display:grid;grid-template-columns:1fr;gap:14px;margin:20px 0}
-.bot-card{border:1px solid var(--line);border-radius:var(--radius-sm);padding:16px 18px;background:var(--surface)}
-.bot-card h3{font-size:15px;font-weight:700;margin-bottom:4px}
-.bot-card p{font-size:13px;color:var(--muted);margin:0}
-/* 招新视图 */
-.join-card{
-  display:grid;grid-template-columns:1fr;gap:20px;background:var(--surface);
-  border:1px solid var(--line);border-radius:var(--radius-md);padding:26px;margin:26px 0;
-}
-.join-qr{width:200px;aspect-ratio:300/396;border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden;background:#fff}
-.join-meta{display:flex;flex-direction:column;justify-content:center;gap:8px}
-.join-meta .qq-num{font-size:22px;font-weight:800;color:var(--blue);letter-spacing:.05em}
-.join-meta p{font-size:13.5px;color:var(--muted);margin:0}
+/* ===== 文章详情 ===== */
+.detail-wrap{max-width:760px;margin:0 auto;padding:56px 24px 88px}
+.detail-back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);margin-bottom:24px;transition:color .2s}
+.detail-back:hover{color:var(--blue)}
+.detail-head .eyebrow{margin-bottom:14px}
+.detail-head h1{font-size:clamp(26px,4vw,38px);font-weight:800;letter-spacing:-.01em;line-height:1.3;margin-bottom:12px}
+.detail-head .meta{font-size:13px;color:var(--muted);margin-bottom:28px}
+.detail-cover{aspect-ratio:3/2;border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--line);margin-bottom:32px;background-size:cover;background-position:center}
+.article-body-text{font-size:16px;line-height:1.85;color:var(--text)}
+.article-body-text h2{font-size:20px;font-weight:700;margin:32px 0 12px;line-height:1.4}
+.article-body-text h3{font-size:16px;font-weight:700;margin:24px 0 8px}
+.article-body-text p{margin-bottom:14px}
+.article-body-text ul,.article-body-text ol{margin:0 0 14px 22px}
+.article-body-text li{margin-bottom:6px}
+.article-body-text blockquote{border-left:3px solid var(--blue);padding:4px 0 4px 16px;color:var(--muted);margin:16px 0}
+.article-body-text .inline-img{width:100%;max-width:560px;aspect-ratio:3/2;border-radius:var(--radius-sm);margin:18px auto;background-size:cover;background-position:center}
+.bot-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}
+.bot-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:14px}
+.bot-card strong{display:block;font-size:14px;margin-bottom:4px}
+.bot-card span{font-size:12.5px;color:var(--muted);line-height:1.5}
+.join-card{display:flex;align-items:center;gap:20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);padding:20px;margin:24px 0}
+.join-qr{width:132px;aspect-ratio:300/396;border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden;background:#fff;flex-shrink:0}
+.join-meta .qq-num{font-size:20px;font-weight:800;color:var(--text);margin-bottom:6px;letter-spacing:.02em}
+.join-meta p{font-size:13.5px;color:var(--muted)}
 
-/* ===== 页脚 ===== */
-.footer{border-top:1px solid var(--line);background:var(--surface)}
-.footer-main{max-width:var(--maxw);margin:0 auto;padding:52px 20px 40px;display:grid;grid-template-columns:1fr;gap:32px}
-.footer-brand-wrap{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-.seal-mark{width:40px;height:40px;border-radius:10px}
-.footer-wordmark{font-size:15px;font-weight:800;letter-spacing:.02em}
-.footer-tagline{font-size:14px;color:var(--muted);max-width:30em}
-.footer-group{display:flex;flex-direction:column;gap:12px}
-.group-title{font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--muted)}
-.footer-links{display:flex;flex-direction:column;gap:10px}
-.footer-links a{font-size:14px;color:var(--text);font-weight:500;width:fit-content;transition:color .2s}
+/* ===== 加入页 ===== */
+.join-hero{padding:88px 0 40px}
+.join-hero .inner-hero{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.join-hero h1{font-size:clamp(30px,4vw,44px);font-weight:800;letter-spacing:-.02em;line-height:1.2;margin-bottom:14px}
+.join-hero p{font-size:16px;color:var(--muted);max-width:640px}
+.join-main{max-width:var(--maxw);margin:0 auto;padding:32px 24px 88px;display:grid;grid-template-columns:1.6fr 1fr;gap:32px;align-items:start}
+.join-steps{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);padding:28px}
+.join-steps h2{font-size:20px;font-weight:800;margin-bottom:20px}
+.join-step{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+.join-step:last-child{border-bottom:none}
+.join-step .step-num{width:30px;height:30px;border-radius:8px;background:var(--ice);color:var(--blue);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.join-step h3{font-size:15px;font-weight:700;margin-bottom:4px}
+.join-step p{font-size:13.5px;color:var(--muted)}
+.join-side{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);padding:28px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;position:sticky;top:calc(var(--header-height) + 16px)}
+.join-side .join-qr{width:200px;margin:0 auto}
+.join-side h3{font-size:17px;font-weight:700}
+.join-side p{font-size:13.5px;color:var(--muted)}
+
+/* ===== Footer ===== */
+.footer{border-top:1px solid var(--line);background:var(--surface);padding:64px 0 32px}
+.footer-main{display:grid;grid-template-columns:1.6fr repeat(4,1fr);gap:32px;margin-bottom:48px}
+.footer-identity .footer-brand-wrap{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.footer-brand-wrap .seal-mark{width:44px;height:44px;border-radius:10px}
+.footer-wordmark{font-size:16px;font-weight:800}
+.footer-tagline{font-size:13.5px;color:var(--muted);max-width:260px}
+.footer-group{min-width:0}
+.group-title{display:block;font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--muted);margin-bottom:14px}
+.footer-links{display:flex;flex-direction:column;gap:8px}
+.footer-links a,.footer-links span{font-size:13.5px;color:var(--muted);transition:color .2s;word-break:break-all}
 .footer-links a:hover{color:var(--blue)}
-.footer-links .contact-number{font-size:14px;color:var(--text);font-weight:600}
-.footer-bottom{
-  border-top:1px solid var(--line);padding:18px 20px;max-width:var(--maxw);margin:0 auto;
-  display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;
-  font-size:12px;color:var(--muted);
-}
+.footer-bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:24px;font-size:12px;color:var(--muted)}
 
-/* ===== 桌面端 ===== */
-@media (min-width:768px){
-  .desktop-nav{display:flex}
-  .external-nav{display:inline-flex}
-  .mobile-menu-button{display:none}
-  .page-hero .hero-inner{padding:72px 20px 60px}
-  .story-card{grid-template-columns:1.15fr 1fr}
-  .story-card .story-cover{aspect-ratio:auto;min-height:100%}
-  .editorial-grid{grid-template-columns:repeat(2,1fr)}
-  .footer-main{grid-template-columns:1.4fr 1fr 1fr 1fr 1fr;gap:20px}
-  .bot-grid{grid-template-columns:repeat(2,1fr)}
-  .join-card{grid-template-columns:auto 1fr}
+/* ===== 响应式 ===== */
+@media (max-width:900px){
+  .desktop-nav,.header-actions .external-nav,.header-actions .header-join,.header-actions .theme-switcher{display:none}
+  .mobile-header-tools{display:flex;align-items:center;gap:6px}
+  .mobile-menu-button{display:inline-flex}
+  .bento{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:1fr;gap:32px}
+  .latest-grid{grid-template-columns:1fr}
+  .eco-panel{grid-template-columns:1fr;gap:24px}
+  .footer-main{grid-template-columns:repeat(2,1fr)}
+  .join-main{grid-template-columns:1fr}
+  .join-side{position:static}
 }
-@media (min-width:1024px){
-  .editorial-grid{grid-template-columns:repeat(3,1fr)}
+@media (max-width:600px){
+  .hero{padding:48px 0 72px}
+  .hero-stage{flex-direction:column;align-items:flex-start;gap:24px;padding-bottom:28px}
+  .hero-character{width:100%;max-width:340px}
+  .hero-aside{position:static;padding:24px 24px 0;text-align:left}
+  .bento{grid-template-columns:1fr}
+  .daily{min-height:0}
+  .story-card{grid-template-columns:1fr}
+  .editorial-grid{grid-template-columns:1fr}
+  .bot-grid{grid-template-columns:1fr 1fr}
+  .footer-main{grid-template-columns:1fr 1fr}
+  .brand-wordmark{font-size:13.5px}
+  .brand-fallback{font-size:10px}
+  .gallery-photo{height:min(320px,44vh)}
 }
-</style> </head> <body>
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">跳转到主要内容</a>
 
-<header class="site-header" data-header>
+<header class="site-header">
   <a class="brand" href="#/" aria-label="东南大学成贤学院 机甲大师-天钺战队 首页">
-    <img class="brand-emblem" src="images/hero.jpg" alt="" width="30" height="30">
+    <img class="brand-emblem" src="images/hero.jpg" alt="" width="32" height="32">
     <span class="brand-text">
       <span class="brand-wordmark">东南大学成贤学院</span>
       <span class="brand-fallback">机甲大师-天钺战队</span>
     </span>
   </a>
   <nav class="desktop-nav" aria-label="主导航">
-    <a href="#/" aria-current="page">首页</a>
-    <a href="#/articles" data-nav-all>动态</a>
+    <a href="#/">首页</a>
+    <a href="#/articles">动态</a>
   </nav>
   <div class="header-actions">
-    <a class="external-nav" href="https://github.com/SEU-CX-RM-Solaris" target="_blank" rel="noopener noreferrer">GitHub
-      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
-    </a>
-    <a class="external-nav" href="https://www.robomaster.com/zh-CN" target="_blank" rel="noopener noreferrer">RoboMaster
-      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
-    </a>
+    <a class="external-nav" href="https://github.com/SEU-CX-RM-Solaris" target="_blank" rel="noopener noreferrer">GitHub <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+    <a class="external-nav" href="https://www.robomaster.com/zh-CN" target="_blank" rel="noopener noreferrer">RoboMaster <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
     <div class="theme-switcher">
-      <button class="icon-button theme-trigger" type="button" aria-label="切换主题" aria-expanded="false" title="切换主题">
-        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      <button class="theme-trigger" type="button" aria-label="切换主题" aria-expanded="false" title="切换主题">
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
       </button>
       <div class="theme-menu" role="menu" hidden>
-        <button type="button" role="menuitem" data-theme-choice="system"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg> 跟随系统</button>
-        <button type="button" role="menuitem" data-theme-choice="light"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg> 浅色模式</button>
-        <button type="button" role="menuitem" data-theme-choice="dark"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg> 深色模式</button>
+        <button type="button" role="menuitem" data-theme-choice="system"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>跟随系统</button>
+        <button type="button" role="menuitem" data-theme-choice="light"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>浅色模式</button>
+        <button type="button" role="menuitem" data-theme-choice="dark"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>深色模式</button>
       </div>
     </div>
     <a class="header-join" href="#/join">加入我们 <span aria-hidden="true">↗</span></a>
   </div>
-  <button class="icon-button mobile-menu-button" type="button" aria-label="打开菜单" aria-expanded="false" data-menu-trigger>
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
-  </button>
+  <div class="mobile-header-tools">
+    <div class="theme-switcher">
+      <button class="theme-trigger" type="button" aria-label="切换主题" aria-expanded="false" title="切换主题">
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </button>
+      <div class="theme-menu" role="menu" hidden>
+        <button type="button" role="menuitem" data-theme-choice="system">跟随系统</button>
+        <button type="button" role="menuitem" data-theme-choice="light">浅色模式</button>
+        <button type="button" role="menuitem" data-theme-choice="dark">深色模式</button>
+      </div>
+    </div>
+    <button class="icon-button mobile-menu-button" type="button" aria-label="打开菜单" aria-expanded="false" data-menu-trigger>
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
+    </button>
+  </div>
 </header>
 
 <div class="mobile-overlay" data-mobile-overlay aria-hidden="true" inert>
   <div class="mobile-overlay-top">
     <a class="brand" href="#/">
-      <img class="brand-emblem" src="images/hero.jpg" alt="" width="30" height="30">
+      <img class="brand-emblem" src="images/hero.jpg" alt="" width="32" height="32">
       <span class="brand-text"><span class="brand-wordmark">东南大学成贤学院</span><span class="brand-fallback">机甲大师-天钺战队</span></span>
     </a>
     <button class="icon-button" type="button" aria-label="关闭菜单" data-menu-close>
-      <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
     </button>
   </div>
   <nav aria-label="移动端主导航">
     <a href="#/" data-menu-link>首页 <span aria-hidden="true">→</span></a>
     <a href="#/articles" data-menu-link>动态 <span aria-hidden="true">→</span></a>
     <a href="#/join" data-menu-link>加入我们 <span aria-hidden="true">→</span></a>
-    <a href="https://github.com/SEU-CX-RM-Solaris" target="_blank" rel="noopener noreferrer">GitHub <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
-    <a href="https://www.robomaster.com/zh-CN" target="_blank" rel="noopener noreferrer">RoboMaster <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+    <a href="https://github.com/SEU-CX-RM-Solaris" target="_blank" rel="noopener noreferrer">GitHub <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+    <a href="https://www.robomaster.com/zh-CN" target="_blank" rel="noopener noreferrer">RoboMaster <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
   </nav>
   <div class="mobile-theme-row">
     <span class="mobile-theme-label">主题模式</span>
@@ -326,329 +419,506 @@ html[data-theme="system"] .icon-moon{display:none}
   <p class="mobile-overlay-note">BUILD. BATTLE. LEARN. SHARE.</p>
 </div>
 
-<main id="main-content"></main>
+<main id="main-content">
+  <div id="view-root"></div>
+</main>
 
 <footer class="footer">
-  <div class="footer-main">
-    <div class="footer-identity">
-      <div class="footer-brand-wrap">
-        <img class="seal-mark" src="images/hero.jpg" alt="" width="40" height="40">
-        <div class="footer-wordmark">天钺 · SOLARIS</div>
+  <div class="wrap">
+    <div class="footer-main">
+      <div class="footer-identity">
+        <div class="footer-brand-wrap">
+          <img class="seal-mark" src="images/hero.jpg" alt="" width="44" height="44">
+          <div class="footer-wordmark">天钺 · SOLARIS</div>
+        </div>
+        <p class="footer-tagline">以太阳为名、以钺为志。秣陵形胜，共赴千山。</p>
       </div>
-      <p class="footer-tagline">以太阳为名、以钺为志。秣陵形胜，共赴千山。</p>
-    </div>
-    <div class="footer-group">
-      <strong class="group-title">EXPLORE</strong>
-      <div class="footer-links"><a href="#/">首页</a><a href="#/articles">动态</a><a href="#/join">加入我们</a></div>
-    </div>
-    <div class="footer-group">
-      <strong class="group-title">SOLARIS ONLINE</strong>
-      <div class="footer-links">
-        <a href="https://github.com/SEU-CX-RM-Solaris" target="_blank" rel="noopener noreferrer">GitHub 组织 ↗</a>
-        <a href="https://www.robomaster.com/zh-CN" target="_blank" rel="noopener noreferrer">RoboMaster 官网 ↗</a>
+      <div class="footer-group">
+        <strong class="group-title">EXPLORE</strong>
+        <div class="footer-links">
+          <a href="#/">首页</a>
+          <a href="#/articles">动态</a>
+          <a href="#/join">加入我们</a>
+        </div>
+      </div>
+      <div class="footer-group">
+        <strong class="group-title">SOLARIS ONLINE</strong>
+        <div class="footer-links">
+          <a href="https://github.com/SEU-CX-RM-Solaris" target="_blank" rel="noopener noreferrer">GitHub 组织 ↗</a>
+          <a href="https://www.robomaster.com/zh-CN" target="_blank" rel="noopener noreferrer">RoboMaster 官网 ↗</a>
+        </div>
+      </div>
+      <div class="footer-group">
+        <strong class="group-title">PROJECTS</strong>
+        <div class="footer-links">
+          <a href="#/post/leaderboard">rm-open-source-leaderboard</a>
+        </div>
+      </div>
+      <div class="footer-group">
+        <strong class="group-title">CONTACT</strong>
+        <div class="footer-links">
+          <span class="contact-number">QQ群：1103192008</span>
+        </div>
       </div>
     </div>
-    <div class="footer-group">
-      <strong class="group-title">PROJECTS</strong>
-      <div class="footer-links">
-        <a href="#/post/leaderboard">rm-open-source-leaderboard</a>
-      </div>
+    <div class="footer-bottom">
+      <span>© 2026 东南大学成贤学院 天钺（Solaris）RoboMaster 战队</span>
+      <span>BUILD. BATTLE. LEARN. SHARE.</span>
     </div>
-    <div class="footer-group">
-      <strong class="group-title">CONTACT</strong>
-      <div class="footer-links"><span class="contact-number">QQ 群：1103192008</span></div>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2026 东南大学成贤学院 天钺（Solaris）RoboMaster 战队</span>
-    <span>BUILD. BATTLE. LEARN. SHARE.</span>
   </div>
 </footer>
 
 <script>
-/* ===== 文章数据（真实素材） ===== */
+/* ===== 文章数据 ===== */
 var ARTICLES = [
   {
-    slug:"recruit-2026", type:"新闻", date:"2026/10", cover:"cover-rm-arena", featured:true,
+    slug:"recruit-2026", type:"新闻", date:"2026/10/18", cover:"cover-rm-arena", featured:true,
     title:"天钺（Solaris）2026 赛季招新启动",
-    summary:"从机械到视觉，从电控到算法。天钺战队面向全校招募新队员，零基础也可以从入门开始，一起备战 2027 赛季。",
+    summary:"天钺（Solaris）是东南大学成贤学院的 RoboMaster 机甲大师战队。战队中文名「天钺」，英文名「Solaris」（源自古拉丁语“太阳”）。我们以太阳为名、以“钺”为志，把机械、嵌入式、视觉、算法和运营拧成一股绳，在赛场上自研机器人，在弹丸与装甲之间找工程的答案。",
     body:[
-      ["h2","天钺是谁"],
-      ["p","天钺（Solaris）是东南大学成贤学院的 RoboMaster 机甲大师战队——战队中文名「天钺」，英文名「Solaris」（源自古拉丁语\u201c太阳\u201d）。我们以太阳为名、以\u201c钺\u201d为志，把机械、嵌入式、视觉、算法和运营拧成一股绳，在赛场上自研机器人，在弹丸与装甲之间找工程的答案。"],
-      ["h2","招新方向"],
-      ["p","无论你是什么专业、什么基础，只要对机器人抱有热情，都有属于你的位置："],
-      ["ul",["机械结构：底盘、云台、发射机构的建模与装配","电控与嵌入式：STM32 主控、电机控制、通信链路","视觉算法：自瞄、能量机关、OpenCV 与神经网络部署","决策与算法：行为树、路径规划、策略博弈","运营宣发：战队品牌、赛事记录、招新与赞助"]],
-      ["h2","如何加入"],
-      ["p","扫码或搜索群号加入招新群，群里会发布宣讲会时间、选拔任务与学习资料。入队考核以任务制为主，看重投入度而非起点。"],
-      ["callout","QQ 招新群：1103192008 · 扫码立即加入"],
-      ["join","扫码加入招新群"]
-    ],
-    links:[["https://www.robomaster.com/zh-CN","了解 RoboMaster 官方 ↗"]]
-  },
-  {
-    slug:"leaderboard", type:"新闻", date:"2026/09", cover:"cover-robots",
-    title:"rm-open-source-leaderboard：RoboMaster 开源资源目录上线",
-    summary:"汇总各战队、个人开发者在 GitHub、Gitee 与官方论坛开源的代码、图纸与项目，帮新队伍少走弯路。",
-    body:[
-      ["h2","项目简介"],
-      ["p","rm-open-source-leaderboard 是东南大学成贤学院天钺战队整理的开源资源目录，覆盖官方资源、第三方公司、社区框架与工具、机械图纸、战队开源、个人开源与论坛开源帖等分类，并收录 DJI 官方及第三方公司的文档与 SDK。"],
-      ["h2","数据口径"],
-      ["p","本项目定位为分类目录，已取消排名机制，不对任何战队或个人做比较或打分——我们相信每个愿意开源的人，都值得被看见。"],
-      ["callout","在线目录：seu-cx-rm-solaris.github.io/rm-open-source-leaderboard"]
-    ],
-    links:[["https://github.com/SEU-CX-RM-Solaris/rm-open-source-leaderboard","项目仓库 ↗"],["https://seu-cx-rm-solaris.github.io/rm-open-source-leaderboard/","在线目录 ↗"]]
-  },
-  {
-    slug:"what-is-rm", type:"博客", date:"2026/09", cover:"cover-arena",
-    title:"什么是 RoboMaster？一场 7 分钟的工程对决",
-    summary:"2013 年由大疆创办，400+ 高校同台竞技。机器人对抗的背后，是机械、电控、视觉与算法的一次全栈练兵。",
-    body:[
-      ["h2","机器人版的\u201c全栈工程\u201d"],
-      ["p","RoboMaster 机甲大师赛由大疆于 2013 年创办，是目前国内规模最大的高校机器人竞赛之一，吸引超过 400 所高校参与。比赛以机器人对抗为核心，每局约 7 分钟：操作手远程操控步兵与英雄机器人，在复杂地形中发射弹丸、击打装甲，同时工程机器人负责救援与补弹，空中机器人提供高空火力。"],
-      ["h2","为什么要参加"],
-      ["p","一场 RoboMaster 比赛几乎覆盖工程师的全部技能：机械设计、嵌入式控制、机器视觉、自主决策、通信与项目管理。它把课堂知识与真实工程问题连在一起——图纸上的公差、代码里的延迟、赛场上的临场决策，都会以最直接的方式反馈给你。"],
-      ["h2","我们的位置"],
-      ["p","天钺战队以视觉与电控为核心方向起步，目标是做出能在赛场上稳定发挥的机器人。我们相信：真正的理解发生在亲手把机器人从零件堆里组装起来、并看着它打中第一发弹丸的时刻。"],
-      ["callout","大疆 2013 年创办 · 400+ 高校参与 · 每局约 7 分钟"]
+      ["p","天钺（Solaris）是东南大学成贤学院的 RoboMaster 机甲大师战队——战队中文名「天钺」，英文名「Solaris」（源自古拉丁语“太阳”）。我们以太阳为名、以“钺”为志，把机械、嵌入式、视觉、算法和运营拧成一股绳，在赛场上自研机器人，在弹丸与装甲之间找工程的答案。"],
+      ["p","秣陵形胜，共赴千山。2026-2027 赛季，天钺正式面向全校招募第一批队员。无论你来自哪个专业、基础如何，只要对机器人怀有好奇，这里就有你的位置。"],
+      ["h2","我们在做什么"],
+      ["ul",["机械组：底盘、云台、装甲板的结构设计与装配","电控组：STM32 嵌入式、电机驱动与传感器融合","视觉组：自瞄、能量机关识别与路径规划算法","运营组：队务、宣传、赞助与赛季统筹"]],
+      ["p","赛季内将参加 RoboMaster 机甲大师赛高校联盟赛（RMUL）与超级对抗赛（RMUC）。我们没有历史包袱——第一年，规则、兵种与场地都是我们的老师。"],
+      ["h2","加入方式"],
+      ["p","加入官方 QQ 招新群 1103192008，群内将发布报名表、宣讲会时间与面试安排。二维码见本页文末。「加入我们」页面也有完整流程。"],
+      ["blockquote","以太阳为名，以钺为志。秣陵形胜，共赴千山。"]
     ]
   },
   {
-    slug:"battlefield", type:"博客", date:"2026/09", cover:"cover-battle",
-    title:"战场上的六种角色：RoboMaster 兵种全解析",
-    summary:"英雄、步兵、工程、空中、哨兵，加上飞镖与雷达——每种兵种都有自己的职责与战术地位。",
-    body:[
-      ["h2","五大机器人兵种"],
-      ["bot",[["英雄机器人 Hero","高血量、高火力，负责在核心区域展开正面压制，是战场的定海神针。"],["步兵机器人 Infantry","机动灵活的常规单位，是全场的火力输出与战术执行者。"],["工程机器人 Engineer","负责救援、补弹与资源交互，是队伍生存与补给的生命线。"],["空中机器人 Aerial","提供高空视野与火力支援，负责击打能量机关，打开全局节奏。"],["哨兵机器人 Sentry","自主巡逻与防御，为基地提供额外护盾，构成防线的最后一道闸门。"]]],
-      ["h2","飞镖与雷达"],
-      ["p","飞镖系统可在特定时机对对方基地发起远程打击；雷达站则为全队提供战场态势感知。它们让比赛从\u201c五台车对推\u201d升级为体系化的博弈。"],
-      ["callout","六种角色各司其职——机械、电控、视觉、算法缺一不可"]
-    ]
-  },
-  {
-    slug:"events", type:"博客", date:"2026/09", cover:"cover-poster",
-    title:"从 RMUC 到 RMUL、RMUT：赛事体系一览",
-    summary:"超级对抗赛、高校联盟赛、技术挑战赛——三条赛道，对应不同的队伍规模与备赛节奏。",
-    body:[
-      ["h2","三条主要赛道"],
-      ["ul",["RMUC 超级对抗赛：完整兵种体系与攻防对抗，RoboMaster 最高规格的主赛事","RMUL 高校联盟赛：区域分站赛制，从步兵 1v1 等小规模对抗起步，是多数队伍的第一站","RMUT 技术挑战赛：聚焦单项技术突破，考验机械与算法的极限"]],
-      ["h2","我们的路线"],
-      ["p","天钺战队 2027 赛季从 RMUL 高校联盟赛·步兵 1v1 起步——先让一辆车能打、能扛、能稳定输出，再逐步扩展兵种体系。"],
-      ["callout","首站：RMUL 高校联盟赛 · 步兵 1v1"]
-    ],
-    links:[["https://www.robomaster.com/zh-CN/robo/rm","RMUC 超级对抗赛 ↗"],["https://www.robomaster.com/zh-CN/robo/college-league","RMUL 高校联盟赛 ↗"]]
-  },
-  {
-    slug:"season-27", type:"博客", date:"2026/08", cover:"cover-hero",
-    title:"27 赛季，我们的第一战",
-    summary:"从 RMUL 步兵 1v1 起步，采用沈阳理工 Ambition 战队开源的全向轮中供步兵方案做适配与二次开发。",
-    body:[
-      ["h2","目标与路线"],
-      ["p","2027 赛季，天钺战队的首站赛事是 RMUL 高校联盟赛的步兵 1v1。我们的目标是：让步兵车具备稳定的底盘运动、可靠的发射机构与初级的视觉自瞄能力，在赛场上完成第一场有竞争力的对抗。"],
-      ["h2","机械基线"],
-      ["p","为避免从零摸索，我们采用沈阳理工大学 Ambition 战队开源的全向轮中供步兵机械方案作为基线，在此基础上做适配与二次开发。开源社区的经验，正是我们站在前人肩膀上的起点。"],
-      ["callout","基线：沈阳理工 Ambition · 全向轮中供步兵机械方案"],
-      ["h2","需要你"],
-      ["p","从零件到赛场的路上，每一个岗位都缺人。如果你对机械、电控、视觉、算法或运营任何一项有兴趣，欢迎加入——详见招新文章。"],
-      ["ul",["机械：SolidWorks 建模、碳板与铝合金件加工","电控：STM32、电机驱动、CAN 通信","视觉：自瞄算法、能量机关识别","运营：进度管理、赛事记录、赞助对接"]]
-    ],
-    links:[["https://bbs.robomaster.com/wiki/20204847","RoboMaster 规则/资料中心 ↗"],["https://www.robomaster.com/zh-CN/resource/announcement/competition","赛事公告 ↗"]]
-  },
-  {
-    slug:"about-name", type:"博客", date:"2026/08", cover:"cover-arena",
+    slug:"solaris-name", type:"随笔", date:"2026/10/02", cover:"cover-poster",
     title:"天钺与 Solaris：名字里的太阳",
-    summary:"中文名「天钺」，英文名「Solaris」，源自古拉丁语的\u201c太阳\u201d。秣陵形胜，共赴千山。",
+    summary:"中文名「天钺」，英文名「Solaris」，源自古拉丁语的“太阳”。秣陵形胜，共赴千山。",
     body:[
-      ["h2","Solaris"],
-      ["p","Solaris 源自古拉丁语，意为\u201c太阳\u201d。我们以此命名，是希望战队像太阳一样持续发光发热——无论训练多枯燥、调试多漫长，总有一份热忱支撑我们把机器人推向赛场。"],
-      ["h2","天钺"],
-      ["p","\u201c钺\u201d是古代的一种兵器，象征开疆拓土的力量。中文名\u201c天钺\u201d取\u201c以钺为志\u201d之意：在工程的世界里一寸一寸地开拓，在赛场上堂堂正正地交锋。"],
-      ["h2","口号"],
-      ["p","\u201c秣陵形胜，共赴千山\u201d。秣陵是南京的古称——我们从南京出发，翻越一座又一座技术的高山，也期待与每一位同路人并肩前行。"],
-      ["callout","以太阳为名，以钺为志。"]
+      ["p","为什么叫天钺？为什么叫 Solaris？这个问题，几乎每一个第一次听说我们的人都问过。"],
+      ["p","Solaris 源自古拉丁语 sol（太阳）。天文学中，它指代太阳、与太阳相关的一切；在经典科幻作品里，它又总与“不可知的存在”联系在一起。我们取这个名字，是想说：机器人这件事，像太阳一样，值得长期去靠近。"],
+      ["h2","钺，是古代的一种兵器"],
+      ["p","钺形似大斧，在先秦是仪仗与征伐的象征，也有“震慑、开路”之意。把“钺”放在“天”之下，是我们对自己的一点期许：在赛场上守得住阵线，也敢去开出一条路。"],
+      ["p","天钺（Solaris）——以太阳为名，以钺为志。秣陵形胜，共赴千山。这句话从此写进队训，也写进每一个赛季的起点。"],
+      ["blockquote","SOLARIS ASCENDS. FORGE AHEAD."]
+    ]
+  },
+  {
+    slug:"what-is-rm", type:"科普", date:"2026/10/05", cover:"cover-arena",
+    title:"什么是 RoboMaster？从规则说起",
+    summary:"RoboMaster 机甲大师赛是 DJI 主办、面向全球高校的机器人对抗赛事。两支队伍操控各自研发的机器人，在 7 分钟里用弹丸击打对方基地与装甲板，攻防转换、战术博弈贯穿始终。",
+    body:[
+      ["p","RoboMaster 机甲大师赛（RM）是 DJI 主办、面向全球高校工程师的机器人对抗赛事。比赛的直观理解：两支队伍各派出一支由多兵种机器人组成的军团，在一个 28m × 8m 的场地里对垒。"],
+      ["h2","七分钟，一场攻防"],
+      ["p","每场比赛约 7 分钟。机器人发射弹丸（17mm 与 42mm 两种），击中对方装甲板造成伤害；被击倒的机器人会被送到维修区，由工程机器人救援后重返战场。基地血量归零即告负。"],
+      ["h2","六个兵种，各司其职"],
+      ["ul",["英雄机器人：扛 42mm 弹丸，攻城略地","步兵机器人：机动主力，与敌方主力对线","工程机器人：救援、补弹、采矿，战场的后勤中枢","哨兵机器人：全自动索敌，守护己方半场","空中机器人：从上方投弹，破局关键","飞镖系统：一发入魂的远程杀器"]],
+      ["p","每一台机器人背后，都是一支完整的小队：机械负责把图纸变成实物，电控负责让关节听话，视觉负责让机器人看见敌人。这既是比赛，也是完整的工程训练。"],
+      ["p","关于规则细节、场地与赛季时间线，可以到 RoboMaster 官网阅读最新规则手册，也可以在招新群里随时提问。"]
+    ]
+  },
+  {
+    slug:"first-infantry", type:"技术", date:"2026/09/20", cover:"cover-hero",
+    title:"从零开始造一辆步兵机器人",
+    summary:"步兵是赛场上的机动主力。这篇文章记录了天钺的第一辆步兵机器人从选型、结构设计到电路联调的完整过程，也回答了“零基础能不能上手”这个问题。",
+    body:[
+      ["p","很多人问我们：你们是不是都是大佬？答案很扫兴——不是。天钺的成员大多是第一次接触 RoboMaster：第一次焊电路、第一次调 PID、第一次跑通自瞄。这篇文章，记录的就是这些“第一次”。"],
+      ["h2","第一步：看懂一台步兵"],
+      ["p","一台标准步兵机器人由四大部分组成：底盘（麦轮或轮毂电机）、云台（两轴电机 + 枪管）、电路系统（主控板、裁判系统、电机驱动）和视觉系统（摄像头 + 算法板）。"],
+      ["ul",["底盘：麦轮实现全向移动，是步法的关键","云台：两轴陀螺仪稳定，保证射击精度","裁判系统：官方红蓝盒子，血量、弹量都靠它上报","视觉：识别敌方装甲板，实现自瞄"]],
+      ["h2","从图到机"],
+      ["p","我们的流程是：先在开源社区找成熟底盘方案（RoboMaster 开发者社区有大量开源仓库），用 CAD 改尺寸，再画电路、打样、装配、联调。第一台车没有追求性能，只求“能动、能打、能完整走完流程”。"],
+      ["p","零基础怎么办？从点亮第一块 STM32 开发板开始。教程、资料和踩坑记录都会陆续整理到「动态」里，欢迎围观。"],
+      ["blockquote","每一个精密的系统，最初都来自一个空白的文件。"]
+    ]
+  },
+  {
+    slug:"leaderboard", type:"开源", date:"2026/09/12", cover:"cover-robots",
+    title:"rm-open-source-leaderboard：天钺的开源清单",
+    summary:"天钺整理了一份 RoboMaster 开源资源榜单：从底盘、云台、自瞄到裁判系统，把值得读的仓库按难度与完整度排好，作为新队员的入门索引。",
+    body:[
+      ["p","加入 RoboMaster 之前，很多人是被它的开源社区吸引的：几乎所有强队都会把设计图纸、代码与心得开源。天钺决定做一份中文索引，叫 rm-open-source-leaderboard——按兵种与难度整理值得读的仓库，让新人少走弯路。"],
+      ["h2","榜单里有什么"],
+      ["ul",["底盘与云台：麦轮结构、双轴云台的成熟方案","嵌入式：主控板原理图、STM32 工程模板","视觉：自瞄开源实现、数据集与训练流程","裁判系统：官方 SDK 的接入与二次开发","整机：完整参赛机器人的全量开源仓库"]],
+      ["p","每个仓库都标注了难度、语言与完整度，建议按“看懂原理 → 复现 → 自己改”的顺序食用。"],
+      ["p","榜单会随赛季持续更新，仓库维护在天钺 GitHub 组织下，欢迎提交你认为值得上榜的项目。"]
+    ]
+  },
+  {
+    slug:"bootcamp-2026", type:"新闻", date:"2026/08/28", cover:"cover-battle",
+    title:"2026 暑期集训营：第一次点亮装甲板",
+    summary:"八月末，天钺办了建队后的第一次集训营。从焊接练习到第一辆麦轮车跑起来，四天里我们完成了从零到动的第一次循环。",
+    body:[
+      ["p","八月末的成贤，天钺办了建队后的第一次集训营。没有场地、没有经验、没有赞助——唯一的家当是几块开发板、一箱工具和一台焊台。"],
+      ["h2","四天，一个循环"],
+      ["ul",["Day 1：焊接与万用表，认识每个元件的脾气","Day 2：STM32 点亮第一颗 LED，跑通串口","Day 3：麦轮底盘组装，电机转起来了","Day 4：第一辆小车全场跑动，第一次“联调”成功"]],
+      ["p","集训营的目标从来不是造出多厉害的车，而是让每个人完整走一遍“图纸 → 焊接 → 代码 → 动起来”的循环。有了第一次，就有第二次。"],
+      ["p","下一期集训营会在招新后开启，届时场地、器材与老队员的经验都会齐备得多。期待见到你。"],
+      ["blockquote","真正深刻的理解，发生在亲手让它动起来的那一刻。"]
     ]
   }
 ];
 
-/* ===== 视图渲染 ===== */
-var main = document.getElementById("main-content");
-function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
-function bodyHtml(body){
-  var h = "";
-  body.forEach(function(block){
-    if(block[0]==="p"){h += "<p>"+esc(block[1])+"</p>"}
-    else if(block[0]==="h2"){h += "<h2>"+esc(block[1])+"</h2>"}
-    else if(block[0]==="h3"){h += "<h3>"+esc(block[1])+"</h3>"}
-    else if(block[0]==="ul"){
-      h += "<ul>"+block[1].map(function(x){return "<li>"+esc(x)+"</li>"}).join("")+"</ul>"
-    }
-    else if(block[0]==="callout"){h += '<div class="callout">'+esc(block[1])+"</div>"}
-    else if(block[0]==="bot"){
-      h += '<div class="bot-grid">'+block[1].map(function(c){
-        return '<div class="bot-card"><h3>'+esc(c[0])+'</h3><p>'+esc(c[1])+"</p></div>"
-      }).join("")+"</div>"
-    }
-    else if(block[0]==="join"){
-      h += '<div class="join-card"><div class="join-qr cover cover-qr"></div><div class="join-meta"><div class="qq-num">1103192008</div><p>扫码或搜索群号加入招新群，获取宣讲会时间与选拔任务。</p></div></div>'
-    }
+/* ===== 工具 ===== */
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function metaHtml(a){return '<div class="meta"><span class="type">'+esc(a.type)+'</span><span>·</span><span>'+esc(a.date)+'</span></div>'}
+function bodyHtml(blocks){
+  var h="";
+  blocks.forEach(function(b){
+    if(b[0]==="p") h+='<p>'+esc(b[1])+'</p>';
+    else if(b[0]==="h2") h+='<h2>'+esc(b[1])+'</h2>';
+    else if(b[0]==="h3") h+='<h3>'+esc(b[1])+'</h3>';
+    else if(b[0]==="ul") h+='<ul>'+b[1].map(function(x){return "<li>"+esc(x)+"</li>"}).join("")+"</ul>";
+    else if(b[0]==="blockquote") h+='<blockquote>'+esc(b[1])+'</blockquote>';
+    else if(b[0]==="img") h+='<div class="inline-img cover '+b[1]+'" role="img" aria-label="'+esc(b[2]||"")+'"></div>';
   });
-  return h
+  return h;
 }
-function linksHtml(links){
-  if(!links||!links.length)return "";
-  return '<div class="detail-links">'+links.map(function(l){
-    return '<a href="'+esc(l[0])+'" target="_blank" rel="noopener noreferrer">'+esc(l[1])+"</a>"
-  }).join("")+"</div>"
-}
+
+/* ===== 首页视图 ===== */
 function renderHome(){
-  var feats = ARTICLES.filter(function(a){return a.featured});
-  var rest = ARTICLES.filter(function(a){return !a.featured});
-  var h = "";
-  h += '<section class="page-hero"><div class="hero-grid" aria-hidden="true"></div><div class="hero-inner">'+
-       '<div class="section-line">SOLARIS EDITORIAL</div>'+
-       '<h1>战队动态与记录。</h1>'+
-       '<p class="hero-copy">记录建队的过程，分享踩过的坑，也留下一些值得被记住的尝试。这里是东南大学成贤学院天钺（Solaris）RoboMaster 战队的官网。</p>'+
-       "</div></section>";
-  h += '<div class="filter-tabs" role="tablist">'+
-       '<button type="button" role="tab" data-filter="all" class="is-active" aria-selected="true">全部</button>'+
-       '<button type="button" role="tab" data-filter="新闻">新闻</button>'+
-       '<button type="button" role="tab" data-filter="博客">博客</button>'+
-       "</div>";
-  if(feats.length){
-    var f = feats[0];
-    h += '<section class="featured" aria-label="精选动态"><a class="story-card" href="#/post/'+f.slug+'">'+
-         '<div class="story-cover cover '+esc(f.cover)+'" role="img" aria-label="'+esc(f.title)+'"></div>'+
-         '<div class="story-body"><div class="eyebrow">'+esc(f.type.toUpperCase())+" · "+esc(f.date)+"</div>"+
-         '<h2>'+esc(f.title)+'</h2><p>'+esc(f.summary)+'</p>'+
-         '<span class="read-more">阅读全文 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>'+
-         "</div></a></section>";
+  var latest=[];
+  var rest=[];
+  ARTICLES.forEach(function(a){ if(a.featured){latest.push(a);} else {rest.push(a);} });
+  var lead=latest[0]||rest[0];
+  var sides=rest.slice(0,2);
+
+  var html='';
+  html+='<section class="hero" id="top">'+
+    '<div class="hero-grid" aria-hidden="true"></div>'+
+    '<div class="hero-stage">'+
+      '<div class="hero-title-lockup"><div class="hello">天钺</div><div class="world">SOLARIS.</div></div>'+
+      '<div class="hero-character cover cover-rm-arena" role="img" aria-label="RoboMaster 机甲大师赛场"></div>'+
+    '</div>'+
+    '<div class="hero-copy"><h1>欢迎来到<span>东南大学成贤学院</span><br>机甲大师天钺战队</h1>'+
+      '<p>在机械、电控与算法的交汇处，<br>用工程师的手，敲出赛场上的回响。</p></div>'+
+    '<div class="hero-actions">'+
+      '<a class="button button-primary" href="#what-we-do">看看我们在做什么 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>'+
+      '<a class="button button-secondary" href="#/join">加入天钺 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>'+
+    '</div>'+
+    '<div class="hero-aside">秣陵形胜，共赴千山。<small>FROM MOLING, TO THE THOUSAND MOUNTAINS.</small></div>'+
+  '</section>';
+
+  html+='<section class="section wrap" id="what-we-do">'+
+    '<div class="section-line">WHAT WE DO</div>'+
+    '<div class="section-heading section-heading-stacked">'+
+      '<h2>在课堂之外，<br>亲手造一台能上场的机器人。</h2>'+
+      '<p>从螺丝与焊点，到自瞄与调度——四支小队各守一段，把机器人从图纸推到赛场。</p>'+
+    '</div>'+
+    '<div class="bento">'+
+      '<article class="daily"><div class="daily-top"><span>01 / MECH</span><span>机械设计</span></div><h3>把图纸变成能扛弹丸的机体</h3><p>底盘、云台与装甲板的结构设计，装配与减震。麦轮怎么装、重心怎么配，都在这一组手里。</p><span class="daily-symbol">&lt;/&gt;</span></article>'+
+      '<article class="daily"><div class="daily-top"><span>02 / CTRL</span><span>嵌入式控制</span></div><h3>让每一个关节听指挥</h3><p>STM32、电机驱动与传感器融合。PID、裁判系统与上下位机通讯，是机器人的神经系统。</p><span class="daily-symbol orange">&gt;_</span></article>'+
+      '<article class="daily"><div class="daily-top"><span>03 / VIS</span><span>机器视觉</span></div><h3>让机器人看见战场</h3><p>自瞄、能量机关识别与路径规划。相机标定、深度学习与滤波，从像素里读出场上的形势。</p><span class="daily-symbol">&#123; &#125;</span></article>'+
+      '<article class="daily"><div class="daily-top"><span>04 / OPS</span><span>队务与开源</span></div><h3>让每个人都有位置</h3><p>招新、训练、宣传与赛季统筹。把文档、代码与经验开源出去，让战队走得更远。</p><span class="daily-symbol">++</span></article>'+
+    '</div>'+
+  '</section>';
+
+  html+='<section class="start" id="start-here">'+
+    '<div class="wrap">'+
+      '<div class="section-line">START HERE</div>'+
+      '<div class="start-intro"><p>“每一个精密的系统，最初都来自一个空白的文件。”</p><h2>不必先懂全部，<span>从第一个兵种开始。</span></h2></div>'+
+      '<div class="steps">'+
+        '<article class="step"><span class="step-number">01 →</span><h3>了解 RoboMaster</h3><p>六兵种、七分钟、一座战场。先读规则与科普，看看机器人比赛到底在打什么。</p><a class="small-link" href="#/articles">阅读科普文章 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a></article>'+
+        '<article class="step"><span class="step-number">02 →</span><h3>加入招新群</h3><p>零基础完全欢迎。进群填报名表，等宣讲会与面试安排，从点亮第一块开发板开始。</p><a class="small-link" href="#/join">加入天钺 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></article>'+
+        '<article class="step"><span class="step-number">03 ↗</span><h3>上手造第一台车</h3><p>焊接、装配、调参、联调。把代码与图纸开源出去，让下一次尝试有迹可循。</p><a class="small-link" href="https://github.com/SEU-CX-RM-Solaris" target="_blank" rel="noopener noreferrer">打开天钺 GitHub <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a></article>'+
+      '</div>'+
+    '</div>'+
+  '</section>';
+
+  html+='<section class="home-gallery" aria-label="天钺战队相册，共六张照片">'+
+    '<div class="gallery-viewport" tabindex="0" role="group" aria-label="战队照片，可左右滑动浏览">'+
+      '<div class="gallery-track">'+
+        '<div class="gallery-photo cover cover-rm-arena" role="img" aria-label="RoboMaster 决赛现场"></div>'+
+        '<div class="gallery-photo cover cover-battle" role="img" aria-label="赛场对战"></div>'+
+        '<div class="gallery-photo cover cover-arena" role="img" aria-label="比赛场地"></div>'+
+        '<div class="gallery-photo cover cover-robots" role="img" aria-label="机器人特写"></div>'+
+        '<div class="gallery-photo cover cover-hero" role="img" aria-label="战队合影"></div>'+
+        '<div class="gallery-photo cover cover-poster" role="img" aria-label="招新海报"></div>'+
+      '</div>'+
+    '</div>'+
+  '</section>';
+
+  html+='<section class="section wrap" id="latest">'+
+    '<div class="section-line">LATEST FROM SOLARIS</div>'+
+    '<div class="section-heading">'+
+      '<h2>近期的记录、<br>尝试与回声。</h2>'+
+      '<a class="small-link" href="#/articles">全部动态 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>'+
+    '</div>'+
+    '<div class="latest-grid">'+
+      '<a class="lead-story" href="#/post/'+lead.slug+'">'+
+        '<div class="news-cover cover '+lead.cover+'" role="img" aria-label="'+esc(lead.title)+'"></div>'+
+        '<div style="padding:20px">'+metaHtml(lead)+'<h3>'+esc(lead.title)+'</h3><p>'+esc(lead.summary)+'</p></div>'+
+      '</a>'+
+      '<div class="side-stories">'+
+        sides.map(function(s){
+          return '<a class="side-story" href="#/post/'+s.slug+'">'+
+            '<div>'+metaHtml(s)+'<h3>'+esc(s.title)+'</h3><p>'+esc(s.summary)+'</p></div>'+
+            '<div class="side-thumb cover '+s.cover+'" role="img" aria-label="'+esc(s.title)+'"></div>'+
+          '</a>';
+        }).join("")+
+      '</div>'+
+    '</div>'+
+  '</section>';
+
+  html+='<section class="ecosystem" id="journey">'+
+    '<div class="wrap">'+
+      '<div class="section-line">THE JOURNEY</div>'+
+      '<div class="section-heading section-heading-stacked">'+
+        '<h2>从第一次焊点，<br>到站上赛场。</h2>'+
+        '<p>在天钺，见证一个纯粹的念头，从桌面上的零件变成一台能打的机器人。</p>'+
+      '</div>'+
+    '</div>'+
+    '<div class="stack-scroll">'+
+      '<article class="stack-scroll-card" style="background:var(--surface);color:var(--text);border-color:var(--line)">'+
+        '<div class="wrap eco-panel">'+
+          '<div class="eco-content"><div class="eco-number">01 / BEGIN</div><h3 class="eco-name">Spark</h3><h4 class="eco-headline">从第一颗螺丝，到第一行代码。</h4>'+
+            '<p>面对陌生的终端、繁杂的接线与未知的报错，迷茫是必经的开端。新队员指南、学长学姐的即时答疑，加上开源社区里足够多的成熟方案，让你不必独自在黑暗中摸索。</p>'+
+            '<a class="small-link" href="#/articles">阅读新人笔记 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>'+
+          '</div>'+
+          '<div class="eco-visual"><div class="journey-mockup terminal-mockup">'+
+            '<div class="mockup-header"><div class="mockup-dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div><span class="mockup-title">zsh — ~/solaris-workspace</span></div>'+
+            '<div class="mockup-body code-font">'+
+              '<div class="term-line prompt"><span class="prompt-arrow">➜</span><span class="prompt-path">~</span><span class="prompt-cmd">solaris init rookie</span></div>'+
+              '<div class="term-line success">✓ 正在载入 RoboMaster 规则手册 v2027...</div>'+
+              '<div class="term-line success">✓ 六兵种档案已就绪 (步兵 / 英雄 / 工程 / 哨兵 / 空中 / 飞镖)</div>'+
+              '<div class="term-line success">✓ 招新群 1103192008 已接入</div>'+
+              '<div class="term-line prompt" style="margin-top:14px"><span class="prompt-arrow">➜</span><span class="prompt-path">rookie</span><span class="prompt-cmd">echo "秣陵形胜，共赴千山"</span></div>'+
+              '<div class="term-output">"以太阳为名，以钺为志。"</div>'+
+              '<div class="term-cursor-line"><span class="prompt-arrow">➜</span><span class="prompt-path">rookie</span><span class="cursor">_</span></div>'+
+            '</div>'+
+          '</div></div>'+
+        '</div>'+
+      '</article>'+
+      '<article class="stack-scroll-card" style="background:#2464ed;color:#ffffff;border-color:#2464ed">'+
+        '<div class="wrap eco-panel">'+
+          '<div class="eco-content"><div class="eco-number">02 / FORGE</div><h3 class="eco-name">Build</h3><h4 class="eco-headline">在并肩攻坚中，把想法打磨成工程。</h4>'+
+            '<p>真正的蜕变，发生在深夜与同伴连麦排查 Bug 的时刻。从个人的练手脚本，到整台机器人的机械、电控与视觉联调——Git 分支、代码评审与架构推演，让复杂的工程不再单打独斗。</p>'+
+            '<a class="small-link" href="#/post/first-infantry">阅读造车记录 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>'+
+          '</div>'+
+          '<div class="eco-visual"><div class="journey-mockup pr-mockup">'+
+            '<div class="pr-top-bar"><span class="pr-badge">✓ Merged</span><span class="pr-repo">solaris / infantry</span><span class="pr-id">#07</span></div>'+
+            '<div class="pr-title">feat: 步兵底盘麦轮运动学与云台双轴 PID 联调</div>'+
+            '<div class="pr-meta-row"><span class="pr-author">3 authors</span><span class="pr-dot">·</span><span class="pr-status">All 12 checks passed</span></div>'+
+            '<div class="pr-timeline">'+
+              '<div class="timeline-item"><span class="tl-icon commit">●</span><div class="tl-content"><span class="tl-msg">fix: 重构电机控制，消除麦轮打滑抖动</span><span class="tl-hash">commit 3f9a21</span></div></div>'+
+              '<div class="timeline-item"><span class="tl-icon review">✓</span><div class="tl-content"><span class="tl-msg">Review approved by mentors</span><span class="tl-sub">“云台响应很稳，赛场试跑顺利！”</span></div></div>'+
+            '</div>'+
+            '<div class="pr-stats-row"><span class="stat-tag">+384 lines</span><span class="stat-tag">-96 lines</span><span class="stat-tag">CI: 48s passed</span></div>'+
+          '</div></div>'+
+        '</div>'+
+      '</article>'+
+      '<article class="stack-scroll-card" style="background:#171b23;color:#ffffff;border-color:#171b23">'+
+        '<div class="wrap eco-panel">'+
+          '<div class="eco-content"><div class="eco-number">03 / PLAY</div><h3 class="eco-name">Create</h3><h4 class="eco-headline">别管实不实用，好玩就值得折腾。</h4>'+
+            '<p>不用一开始就奔着严肃的大工程去。写个赛季整活 Bot、给开源榜单修个 bug、组装一块装甲板测试台……只要你觉得有意思，战队就有人陪你一起折腾。大学里最难得的，就是有时间和同伴做点纯粹好玩的东西。</p>'+
+            '<a class="small-link" href="#/post/leaderboard">看看天钺在折腾什么 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>'+
+          '</div>'+
+          '<div class="eco-visual"><div class="journey-mockup tinker-mockup">'+
+            '<div class="tinker-header"><span class="tinker-label">EXPERIMENT LAB</span><span class="tinker-subtitle">纯粹出于好玩折腾出的小玩意</span></div>'+
+            '<div class="tinker-list">'+
+              '<div class="tinker-item"><span class="tinker-emoji"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span><div class="tinker-body"><div class="tinker-row"><span class="tinker-title">rm-open-source-leaderboard</span><span class="tinker-tag">开源索引</span></div><p class="tinker-desc">按兵种与难度整理的开源仓库清单，新队员的入门索引。</p></div></div>'+
+              '<div class="tinker-item"><span class="tinker-emoji"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg></span><div class="tinker-body"><div class="tinker-row"><span class="tinker-title">赛季数据小站</span><span class="tinker-tag">Web</span></div><p class="tinker-desc">记录训练赛战绩与装备迭代的极简网页，几乎不吃资源。</p></div></div>'+
+              '<div class="tinker-item"><span class="tinker-emoji"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></span><div class="tinker-body"><div class="tinker-row"><span class="tinker-title">装甲板识别测试台</span><span class="tinker-tag">视觉</span></div><p class="tinker-desc">用屏幕模拟战场装甲板，离线调试自瞄算法的小实验。</p></div></div>'+
+            '</div>'+
+          '</div></div>'+
+        '</div>'+
+      '</article>'+
+    '</div>'+
+  '</section>';
+
+  html+='<section class="join-section" id="join-us">'+
+    '<div class="wrap">'+
+      '<div class="section-line">JOIN US</div>'+
+      '<div class="join-inner">'+
+        '<h2>下一场对局，<br>期待与你并肩。</h2>'+
+        '<div><p>技能可以从零研习，经验可以慢慢沉淀，但对机器人的热望不可替代。只要你对机甲大师的世界怀有好奇，这里便有属于你的一席之地。</p>'+
+        '<a class="button button-primary" href="#/join">加入天钺战队 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></div>'+
+      '</div>'+
+    '</div>'+
+  '</section>';
+
+  document.getElementById("view-root").innerHTML = html;
+}
+
+/* ===== 动态页 ===== */
+var CATS=["全部","新闻","科普","技术","随笔","开源"];
+function renderArticles(){
+  var cur = ARTICLES_FILTER || "全部";
+  var list = cur==="全部" ? ARTICLES.slice() : ARTICLES.filter(function(a){return a.type===cur;});
+  var feat = list.filter(function(a){return a.featured;});
+  var grid = list.filter(function(a){return !a.featured;});
+  var lead = feat[0] || grid.shift() || null;
+
+  var html='';
+  html+='<section class="page-hero"><div class="hero-grid" aria-hidden="true"></div><div class="inner-hero">'+
+    '<h1>天钺 · 动态</h1>'+
+    '<p>建队过程的记录、踩过的坑，与值得被记住的尝试。动态会随赛季持续更新。</p>'+
+  '</div></section>';
+
+  html+='<div class="filter-tabs">'+CATS.map(function(c){
+    return '<button type="button" class="'+(c===cur?"is-active":"")+'" data-filter="'+c+'">'+c+'</button>';
+  }).join("")+'</div>';
+
+  if(lead){
+    html+='<div class="featured"><a class="story-card" href="#/post/'+lead.slug+'">'+
+      '<div class="story-cover cover '+lead.cover+'" role="img" aria-label="'+esc(lead.title)+'"></div>'+
+      '<div class="story-body"><div class="eyebrow">'+esc(lead.type)+' · FEATURED</div><h3>'+esc(lead.title)+'</h3><p>'+esc(lead.summary)+'</p>'+
+      '<span class="read-more">阅读全文 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></div>'+
+    '</a></div>';
   }
-  h += '<section class="editorial" aria-label="文章列表"><div class="editorial-grid" id="grid">';
-  rest.forEach(function(a){
-    h += '<a class="article-card" href="#/post/'+a.slug+'" data-type="'+esc(a.type)+'">'+
-         '<div class="article-cover cover '+esc(a.cover)+'" role="img" aria-label="'+esc(a.title)+'"></div>'+
-         '<div class="article-body"><div class="article-meta"><span class="type">'+esc(a.type)+'</span><span> · '+esc(a.date)+"</span></div>"+
-         '<h3>'+esc(a.title)+'</h3><p>'+esc(a.summary)+'</p>'+
-         '<span class="read-more sm">阅读全文 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>'+
-         "</div></a>";
+
+  html+='<div class="editorial"><div class="editorial-grid">';
+  grid.forEach(function(a){
+    html+='<a class="article-card" href="#/post/'+a.slug+'">'+
+      '<div class="article-cover cover '+a.cover+'" role="img" aria-label="'+esc(a.title)+'"></div>'+
+      '<div class="article-body">'+metaHtml(a)+'<h3>'+esc(a.title)+'</h3><p>'+esc(a.summary)+'</p>'+
+      '<span class="read-more">阅读全文 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></div>'+
+    '</a>';
   });
-  h += "</div></section>";
-  main.innerHTML = h;
-  bindTabs();
+  html+='</div></div>';
+
+  document.getElementById("view-root").innerHTML = html;
+  var tabs=document.querySelectorAll(".filter-tabs button");
+  tabs.forEach(function(b){
+    b.addEventListener("click",function(){ ARTICLES_FILTER=b.getAttribute("data-filter"); renderArticles(); });
+  });
 }
-function renderDetail(slug){
-  var a = null;
-  ARTICLES.forEach(function(x){if(x.slug===slug)a=x});
-  if(!a){renderHome();return}
-  main.innerHTML =
-    '<article class="detail">'+
-    '<a class="detail-back" href="#/"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> 返回全部</a>'+
-    '<div class="eyebrow">'+esc(a.type.toUpperCase())+" · "+esc(a.date)+"</div>"+
-    "<h1>"+esc(a.title)+"</h1>"+
-    '<p class="lead">'+esc(a.summary)+"</p>"+
-    '<div class="detail-cover cover '+esc(a.cover)+'" role="img" aria-label="'+esc(a.title)+'"></div>'+
-    '<div class="detail-body">'+bodyHtml(a.body)+"</div>"+
-    linksHtml(a.links)+
-    "</article>";
-  window.scrollTo(0,0)
+
+/* ===== 文章详情 ===== */
+var BOTS=[
+  {name:"英雄机器人",desc:"扛 42mm 弹丸，攻城略地"},
+  {name:"步兵机器人",desc:"机动主力，与敌方对线"},
+  {name:"工程机器人",desc:"救援、补弹、采矿，后勤中枢"},
+  {name:"哨兵机器人",desc:"全自动索敌，守护半场"},
+  {name:"空中机器人",desc:"从上方投弹，破局关键"},
+  {name:"飞镖系统",desc:"一发入魂的远程杀器"}
+];
+function renderPost(slug){
+  var a=ARTICLES.filter(function(x){return x.slug===slug;})[0];
+  if(!a){ renderArticles(); return; }
+  var html='';
+  html+='<div class="detail-wrap">'+
+    '<a class="detail-back" href="#/articles"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> 返回动态</a>'+
+    '<div class="detail-head">'+
+      '<div class="eyebrow">'+esc(a.type)+' · '+esc(a.date)+'</div>'+
+      '<h1>'+esc(a.title)+'</h1>'+
+      '<div class="meta">'+esc(a.date)+' · 天钺（Solaris）战队</div>'+
+    '</div>'+
+    '<div class="detail-cover cover '+a.cover+'" role="img" aria-label="'+esc(a.title)+'"></div>'+
+    '<div class="article-body-text">'+bodyHtml(a.body)+'</div>';
+  if(slug==="recruit-2026"){
+    html+='<h2 style="margin-top:36px;font-size:20px;font-weight:700">六大兵种，各司其职</h2>'+
+      '<div class="bot-grid">'+BOTS.map(function(b){
+        return '<div class="bot-card"><strong>'+b.name+'</strong><span>'+b.desc+'</span></div>';
+      }).join("")+'</div>';
+    html+='<div class="join-card">'+
+      '<div class="join-qr"><div class="cover cover-qr" style="width:100%;height:100%" role="img" aria-label="QQ 招新群二维码"></div></div>'+
+      '<div class="join-meta"><div class="qq-num">QQ群 1103192008</div><p>扫码加入天钺招新群<br>报名表、宣讲会时间与面试安排均在群内发布</p></div>'+
+    '</div>';
+  }
+  html+='</div>';
+  document.getElementById("view-root").innerHTML = html;
+  window.scrollTo(0,0);
 }
+
+/* ===== 加入页 ===== */
 function renderJoin(){
-  main.innerHTML =
-    '<article class="detail">'+
-    '<a class="detail-back" href="#/"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> 返回全部</a>'+
-    '<div class="eyebrow">JOIN US · 2026 赛季</div>'+
-    "<h1>加入天钺，共赴千山。</h1>"+
-    '<p class="lead">技能可以从零研习，经验可以慢慢沉淀，但对机器人的热望不可替代。只要你对机甲心怀好奇，这里便有属于你的一席之地。</p>'+
-    '<div class="detail-body">'+
-    "<h2>招新方向</h2>"+
-    '<ul><li>机械结构：底盘、云台、发射机构的建模与装配</li><li>电控与嵌入式：STM32 主控、电机控制、通信链路</li><li>视觉算法：自瞄、能量机关、OpenCV 与神经网络部署</li><li>决策与算法：行为树、路径规划、策略博弈</li><li>运营宣发：战队品牌、赛事记录、招新与赞助</li></ul>'+
-    '<div class="callout">零基础也可以——入队考核以任务制为主，看重投入度而非起点。</div>'+
-    "</div>"+
-    '<div class="join-card"><div class="join-qr cover cover-qr"></div><div class="join-meta"><div class="qq-num">1103192008</div><p>扫码或搜索群号加入招新群，获取宣讲会时间、选拔任务与学习资料。</p></div></div>'+
-    '<div class="detail-links"><a href="https://www.robomaster.com/zh-CN" target="_blank" rel="noopener noreferrer">了解 RoboMaster 官方 ↗</a></div>'+
-    "</article>";
-  window.scrollTo(0,0)
-}
-function bindTabs(){
-  var tabs = main.querySelectorAll("[data-filter]");
-  var cards = main.querySelectorAll("#grid .article-card");
-  tabs.forEach(function(t){
-    t.addEventListener("click",function(){
-      tabs.forEach(function(x){x.classList.remove("is-active");x.setAttribute("aria-selected","false")});
-      t.classList.add("is-active");t.setAttribute("aria-selected","true");
-      var f = t.getAttribute("data-filter");
-      cards.forEach(function(c){
-        c.style.display = (f==="all"||c.getAttribute("data-type")===f) ? "" : "none"
-      });
-    })
-  })
+  var html='';
+  html+='<section class="join-hero"><div class="hero-grid" aria-hidden="true"></div><div class="inner-hero">'+
+    '<h1>加入天钺（Solaris）</h1>'+
+    '<p>零基础完全欢迎。只要你对机器人怀有好奇，机械、电控、视觉、运营——总有一个位置适合你。</p>'+
+  '</div></section>';
+  html+='<div class="join-main">'+
+    '<div class="join-steps"><h2>加入流程</h2>'+
+      '<div class="join-step"><span class="step-num">1</span><div><h3>加入官方招新群</h3><p>QQ 群 1103192008，进群改备注“年级-专业-姓名”，群文件里有报名表。</p></div></div>'+
+      '<div class="join-step"><span class="step-num">2</span><div><h3>填写报名表</h3><p>选择意向方向（机械 / 电控 / 视觉 / 运营），可多选。零基础同样欢迎。</p></div></div>'+
+      '<div class="join-step"><span class="step-num">3</span><div><h3>参加宣讲与面试</h3><p>招新宣讲会介绍赛季规划与各组职责，之后进行简单面试与组内交流。</p></div></div>'+
+      '<div class="join-step"><span class="step-num">4</span><div><h3>进入集训营</h3><p>通过后进入赛季前集训，从焊接、装配与第一行代码开始，完成第一次“从零到动”。</p></div></div>'+
+    '</div>'+
+    '<div class="join-side">'+
+      '<h3>扫码加入招新群</h3>'+
+      '<div class="join-qr"><div class="cover cover-qr" style="width:100%;height:100%" role="img" aria-label="QQ 招新群二维码"></div></div>'+
+      '<p>QQ群：1103192008</p>'+
+      '<p style="font-size:12px">进群备注“年级-专业-姓名”</p>'+
+    '</div>'+
+  '</div>';
+  document.getElementById("view-root").innerHTML = html;
+  window.scrollTo(0,0);
 }
 
 /* ===== 路由 ===== */
 function route(){
-  var h = location.hash || "#/";
-  if(h.indexOf("#/post/")===0){renderDetail(h.slice(7))}
-  else if(h==="#/join"){renderJoin()}
-  else{renderHome()}
+  var h=location.hash||"";
+  if(!h || h==="#" || h==="#/"){ renderHome(); return; }
+  if(h.indexOf("#/post/")===0){ renderPost(h.slice(7)); return; }
+  if(h==="#/articles"){ renderArticles(); return; }
+  if(h==="#/join"){ renderJoin(); return; }
+  /* 其余 #anchors（如 #what-we-do）不重渲染，交给浏览器锚点滚动 */
 }
 window.addEventListener("hashchange",route);
-route();
 
-/* ===== 主题切换 ===== */
-var SWITCHER_SELECTOR = ".theme-switcher";
-document.querySelectorAll(SWITCHER_SELECTOR).forEach(function(sw){
-  var trig = sw.querySelector(".theme-trigger");
-  var menu = sw.querySelector(".theme-menu");
-  trig.addEventListener("click",function(e){
-    e.stopPropagation();
-    var show = menu.hidden;
-    closeAllMenus();
-    if(show){menu.hidden=false;trig.setAttribute("aria-expanded","true")}
+/* ===== 主题 ===== */
+function applyThemeChoice(t,el){
+  document.documentElement.dataset.theme=t;
+  try{ localStorage.setItem("solaris-theme",t); }catch(e){}
+  document.querySelectorAll("[data-theme-choice]").forEach(function(b){
+    var on=(b.getAttribute("data-theme-choice")===t);
+    b.classList.toggle("is-active",on);
+    if(b.getAttribute("role")==="menuitem") b.setAttribute("aria-selected",String(on));
   });
-});
-function closeAllMenus(){
-  document.querySelectorAll(SWITCHER_SELECTOR).forEach(function(sw){
-    sw.querySelector(".theme-menu").hidden=true;
-    sw.querySelector(".theme-trigger").setAttribute("aria-expanded","false")
-  })
 }
 document.addEventListener("click",function(e){
-  if(!(e.target instanceof Node))return;
-  var inside = false;
-  document.querySelectorAll(SWITCHER_SELECTOR).forEach(function(sw){if(sw.contains(e.target))inside=true});
-  if(!inside)closeAllMenus()
+  var t=e.target;
+  if(t.closest && t.closest("[data-theme-choice]")){
+    var b=t.closest("[data-theme-choice]");
+    applyThemeChoice(b.getAttribute("data-theme-choice"),b);
+    closeMenus();
+    return;
+  }
+  if(t.closest && t.closest(".theme-trigger")){
+    var sw=t.closest(".theme-switcher");
+    var menu=sw.querySelector(".theme-menu");
+    var trig=sw.querySelector(".theme-trigger");
+    var open=menu.hidden;
+    closeMenus();
+    if(open){ menu.hidden=false; trig.setAttribute("aria-expanded","true"); }
+    return;
+  }
+  if(!t.closest || !t.closest(".theme-switcher")) closeMenus();
 });
-document.querySelectorAll("[data-theme-choice]").forEach(function(btn){
-  btn.addEventListener("click",function(){
-    var t = btn.getAttribute("data-theme-choice");
-    document.documentElement.dataset.theme = t;
-    try{localStorage.setItem("solaris-theme",t)}catch(e){}
-    setActiveTheme(t);
-    closeAllMenus();
-    document.querySelectorAll(".mobile-theme-btn").forEach(function(m){m.classList.toggle("is-active",m.getAttribute("data-theme-choice")===t)})
-  })
-});
-function setActiveTheme(t){
-  document.querySelectorAll("[data-theme-choice]").forEach(function(b){
-    var on = b.getAttribute("data-theme-choice")===t;
-    b.setAttribute("aria-selected",String(on));
-    b.classList.toggle("is-active",on)
-  })
+function closeMenus(){
+  document.querySelectorAll(".theme-menu").forEach(function(m){ m.hidden=true; });
+  document.querySelectorAll(".theme-trigger").forEach(function(b){ b.setAttribute("aria-expanded","false"); });
 }
-setActiveTheme(document.documentElement.dataset.theme);
 
 /* ===== 移动端菜单 ===== */
-var overlay = document.querySelector("[data-mobile-overlay]");
-var menuTrig = document.querySelector("[data-menu-trigger]");
-var menuClose = document.querySelector("[data-menu-close]");
-menuTrig.addEventListener("click",function(){
-  overlay.classList.add("is-open");overlay.removeAttribute("inert");overlay.setAttribute("aria-hidden","false");
-  menuTrig.setAttribute("aria-expanded","true");document.body.classList.add("menu-open");menuClose.focus()
-});
-function closeMenu(){
-  overlay.classList.remove("is-open");overlay.setAttribute("inert","");overlay.setAttribute("aria-hidden","true");
-  menuTrig.setAttribute("aria-expanded","false");document.body.classList.remove("menu-open")
+var overlay=document.querySelector("[data-mobile-overlay]");
+var menuTrig=document.querySelector("[data-menu-trigger]");
+var menuClose=document.querySelector("[data-menu-close]");
+function openMenu(){ overlay.classList.add("is-open"); overlay.removeAttribute("inert"); overlay.setAttribute("aria-hidden","false"); menuTrig.setAttribute("aria-expanded","true"); document.body.classList.add("menu-open"); }
+function closeMenu(){ overlay.classList.remove("is-open"); overlay.setAttribute("inert",""); overlay.setAttribute("aria-hidden","true"); menuTrig.setAttribute("aria-expanded","false"); document.body.classList.remove("menu-open"); }
+if(menuTrig) menuTrig.addEventListener("click",openMenu);
+if(menuClose) menuClose.addEventListener("click",closeMenu);
+document.querySelectorAll("[data-menu-link]").forEach(function(a){ a.addEventListener("click",closeMenu); });
+document.addEventListener("keydown",function(e){ if(e.key==="Escape" && overlay.classList.contains("is-open")) closeMenu(); });
+
+/* ===== 顶栏随滚动 ===== */
+var header=document.querySelector(".site-header");
+var galleryViewport=null;
+function onScroll(){
+  if(!header) return;
+  header.toggleAttribute("data-scrolled", window.scrollY>30);
+  var gv=document.querySelector(".gallery-viewport");
+  if(gv){
+    var r=gv.getBoundingClientRect();
+    var hr=header.getBoundingClientRect();
+    header.toggleAttribute("data-over-gallery", r.top<hr.bottom && r.bottom>0);
+  }
 }
-menuClose.addEventListener("click",closeMenu);
-document.querySelectorAll("[data-menu-link]").forEach(function(a){a.addEventListener("click",closeMenu)});
-document.addEventListener("keydown",function(e){if(e.key==="Escape"&&overlay.classList.contains("is-open"))closeMenu()});
-</script> </body> </html>
+window.addEventListener("scroll",onScroll,{passive:true});
+window.addEventListener("resize",onScroll,{passive:true});
+
+/* ===== 初始渲染 ===== */
+var ARTICLES_FILTER="全部";
+applyThemeChoice(document.documentElement.dataset.theme||"system",null);
+route();
+onScroll();
+</script>
+</body>
+</html>
