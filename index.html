@@ -214,6 +214,24 @@ html[data-theme="dark"] .icon-sun{display:block}
 .tinker-tag{font-size:10px;color:var(--blue);background:var(--ice);padding:2px 7px;border-radius:999px;white-space:nowrap}
 .tinker-desc{font-size:12px;color:var(--muted);line-height:1.55}
 
+/* ===== SOLARIS BEYOND 外部阵地入口 ===== */
+.beyond-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.beyond-card{position:relative;display:flex;flex-direction:column;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);padding:26px;overflow:hidden;transition:transform .25s,border-color .25s,box-shadow .25s}
+.beyond-card:hover{transform:translateY(-4px);border-color:var(--blue);box-shadow:var(--shadow)}
+.beyond-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px}
+.beyond-icon{width:44px;height:44px;border-radius:12px;background:var(--ice);color:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.beyond-tag{font-size:10px;font-weight:700;letter-spacing:.18em;color:var(--muted)}
+.beyond-card h3{font-size:19px;font-weight:800;letter-spacing:-.01em;line-height:1.35}
+.beyond-card p{font-size:14px;color:var(--muted);flex:1;line-height:1.7}
+.beyond-cta{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--blue);margin-top:4px}
+.beyond-card:hover .beyond-cta{color:var(--blue-deep)}
+.beyond-sym{position:absolute;right:14px;bottom:2px;font-size:64px;font-weight:800;color:var(--blue);opacity:.07;font-family:ui-monospace,Consolas,monospace;pointer-events:none;line-height:1}
+.leaderboard-links{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+.blog-banner{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);padding:22px 24px;margin-top:28px;transition:border-color .25s,transform .25s}
+.blog-banner:hover{border-color:var(--blue);transform:translateY(-2px)}
+.blog-banner strong{display:block;font-size:16px;font-weight:800;margin-bottom:4px}
+.blog-banner p{font-size:13.5px;color:var(--muted)}
+
 /* ===== JOIN US ===== */
 .join-section{padding:96px 0}
 .join-inner{display:flex;align-items:center;justify-content:space-between;gap:48px;flex-wrap:wrap}
@@ -320,6 +338,8 @@ html[data-theme="dark"] .icon-sun{display:block}
   .bento{grid-template-columns:repeat(2,1fr)}
   .steps{grid-template-columns:1fr;gap:32px}
   .latest-grid{grid-template-columns:1fr}
+  .beyond-grid{grid-template-columns:1fr}
+  .leaderboard-links{grid-template-columns:1fr}
   .eco-panel{grid-template-columns:1fr;gap:24px}
   .footer-main{grid-template-columns:repeat(2,1fr)}
   .join-main{grid-template-columns:1fr}
@@ -356,6 +376,7 @@ html[data-theme="dark"] .icon-sun{display:block}
   <nav class="desktop-nav" aria-label="主导航">
     <a href="#/">首页</a>
     <a href="#/articles">动态</a>
+    <a href="https://seu-cx-rm-solaris.github.io/solaris-blog-rm-seu-cxxy/" target="_blank" rel="noopener noreferrer">博客 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
   </nav>
   <div class="header-actions">
     <a class="external-nav" href="https://github.com/SEU-CX-RM-Solaris" target="_blank" rel="noopener noreferrer">GitHub <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
@@ -404,6 +425,7 @@ html[data-theme="dark"] .icon-sun{display:block}
   <nav aria-label="移动端主导航">
     <a href="#/" data-menu-link>首页 <span aria-hidden="true">→</span></a>
     <a href="#/articles" data-menu-link>动态 <span aria-hidden="true">→</span></a>
+    <a href="https://seu-cx-rm-solaris.github.io/solaris-blog-rm-seu-cxxy/" target="_blank" rel="noopener noreferrer">博客 <span aria-hidden="true">↗</span></a>
     <a href="#/join" data-menu-link>加入我们 <span aria-hidden="true">→</span></a>
     <a href="https://github.com/SEU-CX-RM-Solaris" target="_blank" rel="noopener noreferrer">GitHub <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
     <a href="https://www.robomaster.com/zh-CN" target="_blank" rel="noopener noreferrer">RoboMaster <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
@@ -444,6 +466,7 @@ html[data-theme="dark"] .icon-sun{display:block}
       <div class="footer-group">
         <strong class="group-title">SOLARIS ONLINE</strong>
         <div class="footer-links">
+          <a href="https://seu-cx-rm-solaris.github.io/solaris-blog-rm-seu-cxxy/" target="_blank" rel="noopener noreferrer">战队技术博客 ↗</a>
           <a href="https://github.com/SEU-CX-RM-Solaris" target="_blank" rel="noopener noreferrer">GitHub 组织 ↗</a>
           <a href="https://www.robomaster.com/zh-CN" target="_blank" rel="noopener noreferrer">RoboMaster 官网 ↗</a>
         </div>
@@ -452,6 +475,7 @@ html[data-theme="dark"] .icon-sun{display:block}
         <strong class="group-title">PROJECTS</strong>
         <div class="footer-links">
           <a href="#/post/leaderboard">rm-open-source-leaderboard</a>
+          <a href="https://seu-cx-rm-solaris.github.io/rm-open-source-leaderboard/" target="_blank" rel="noopener noreferrer">开源资源目录（在线）↗</a>
         </div>
       </div>
       <div class="footer-group">
@@ -570,6 +594,12 @@ function bodyHtml(blocks){
   });
   return h;
 }
+
+/* ===== 外部阵地图标 ===== */
+var ICON_BOOK='<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>';
+var ICON_LAYERS='<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>';
+var ICON_GH='<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>';
+var ICON_EXT='<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>';
 
 /* ===== 首页视图 ===== */
 function renderHome(){
@@ -722,6 +752,30 @@ function renderHome(){
     '</div>'+
   '</section>';
 
+  html+='<section class="section wrap" id="beyond">'+
+    '<div class="section-line">SOLARIS BEYOND</div>'+
+    '<div class="section-heading section-heading-stacked">'+
+      '<h2>我们的阵地，<br>不止于赛场。</h2>'+
+      '<p>把整理过的资料、踩过的坑与写下的笔记开源出去——这是天钺对 RoboMaster 社区的一点回礼。</p>'+
+    '</div>'+
+    '<div class="beyond-grid">'+
+      '<a class="beyond-card" href="https://seu-cx-rm-solaris.github.io/solaris-blog-rm-seu-cxxy/" target="_blank" rel="noopener noreferrer">'+
+        '<div class="beyond-top"><span class="beyond-icon">'+ICON_BOOK+'</span><span class="beyond-tag">BLOG</span></div>'+
+        '<h3>天钺技术博客</h3>'+
+        '<p>培训讲义、技术笔记与赛季复盘。队员们把课堂之外的自学路线与踩坑记录写成文章，供后来者取用。</p>'+
+        '<span class="beyond-cta">前往博客 '+ICON_EXT+'</span>'+
+        '<span class="beyond-sym" aria-hidden="true">&lt;/&gt;</span>'+
+      '</a>'+
+      '<a class="beyond-card" href="https://seu-cx-rm-solaris.github.io/rm-open-source-leaderboard/" target="_blank" rel="noopener noreferrer">'+
+        '<div class="beyond-top"><span class="beyond-icon">'+ICON_LAYERS+'</span><span class="beyond-tag">OPEN SOURCE</span></div>'+
+        '<h3>rm-open-source-leaderboard</h3>'+
+        '<p>RoboMaster 开源资源目录：汇总各战队、个人开发者、DJI 官方与第三方公司开源的代码、图纸与文档，按分类整理成新队员的入门索引。</p>'+
+        '<span class="beyond-cta">浏览目录 '+ICON_EXT+'</span>'+
+        '<span class="beyond-sym" aria-hidden="true">{ }</span>'+
+      '</a>'+
+    '</div>'+
+  '</section>';
+
   html+='<section class="join-section" id="join-us">'+
     '<div class="wrap">'+
       '<div class="section-line">JOIN US</div>'+
@@ -771,7 +825,12 @@ function renderArticles(){
       '<span class="read-more">阅读全文 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></div>'+
     '</a>';
   });
-  html+='</div></div>';
+  html+='</div>';
+  html+='<a class="blog-banner" href="https://seu-cx-rm-solaris.github.io/solaris-blog-rm-seu-cxxy/" target="_blank" rel="noopener noreferrer">'+
+    '<div><strong>天钺技术博客</strong><p>更系统的培训讲义、技术笔记与赛季复盘，在战队博客持续更新。</p></div>'+
+    '<span class="read-more">前往博客 '+ICON_EXT+'</span>'+
+  '</a>';
+  html+='</div>';
 
   document.getElementById("view-root").innerHTML = html;
   var tabs=document.querySelectorAll(".filter-tabs button");
@@ -802,6 +861,20 @@ function renderPost(slug){
     '</div>'+
     '<div class="detail-cover cover '+a.cover+'" role="img" aria-label="'+esc(a.title)+'"></div>'+
     '<div class="article-body-text">'+bodyHtml(a.body)+'</div>';
+  if(slug==="leaderboard"){
+    html+='<div class="leaderboard-links">'+
+      '<a class="beyond-card" href="https://seu-cx-rm-solaris.github.io/rm-open-source-leaderboard/" target="_blank" rel="noopener noreferrer">'+
+        '<div class="beyond-top"><span class="beyond-icon">'+ICON_LAYERS+'</span><span class="beyond-tag">LIVE</span></div>'+
+        '<h3>在线目录</h3><p>在浏览器中直接浏览全部分类与收录条目。</p>'+
+        '<span class="beyond-cta">打开目录 '+ICON_EXT+'</span>'+
+      '</a>'+
+      '<a class="beyond-card" href="https://github.com/SEU-CX-RM-Solaris/rm-open-source-leaderboard" target="_blank" rel="noopener noreferrer">'+
+        '<div class="beyond-top"><span class="beyond-icon">'+ICON_GH+'</span><span class="beyond-tag">REPO</span></div>'+
+        '<h3>GitHub 仓库</h3><p>查看数据来源，或提交 PR 收录新的开源资源。</p>'+
+        '<span class="beyond-cta">前往仓库 '+ICON_EXT+'</span>'+
+      '</a>'+
+    '</div>';
+  }
   if(slug==="recruit-2026"){
     html+='<h2 style="margin-top:36px;font-size:20px;font-weight:700">六大兵种，各司其职</h2>'+
       '<div class="bot-grid">'+BOTS.map(function(b){
