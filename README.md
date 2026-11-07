@@ -7,7 +7,7 @@
 **战队**：东南大学成贤学院 · 天钺（Solaris）RoboMaster 战队
 **中文名**：天钺
 **英文名**：Solaris
-**口号**：秣陵形胜，共赴千山
+**口号**：秣陵行胜，共赴千山
 **学院**：SEU CXXY（Southeast University Chengxian College）
 
 ---
@@ -63,4 +63,4 @@ python -m http.server 8000
 
 ---
 
-秣陵形胜，共赴千山 · Built with passion in Nanjing
+秣陵行胜，共赴千山 · Built with passion in Nanjing
